@@ -279,12 +279,37 @@
     background:var(--g-color,var(--c-trunk));
     display:flex;align-items:center;justify-content:center;
     font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--panel-bg);
-    white-space:nowrap;overflow:hidden;
+    white-space:nowrap;overflow:visible;
   }
   .g-bar.unset{
     background:transparent;border:1.4px dashed var(--g-color,var(--c-trunk));
     color:var(--ink-soft);opacity:.75;
   }
+  /* ร่างที่ผมเสนอ — ลายทาง รอการยืนยัน */
+  .g-bar.draft{
+    background:repeating-linear-gradient(135deg,
+      var(--g-color,var(--c-trunk)) 0 4px, transparent 4px 8px);
+    border:1.2px solid var(--g-color,var(--c-trunk));
+    color:var(--ink);
+  }
+  .g-seg-del{
+    position:absolute;right:-6px;top:-6px;width:14px;height:14px;border-radius:50%;
+    background:var(--bad);color:#fff;border:none;cursor:pointer;
+    font-size:9px;line-height:1;display:none;align-items:center;justify-content:center;padding:0;
+  }
+  .g-bar:hover .g-seg-del{display:flex;}
+  .g-preview{opacity:.55;pointer-events:none;}
+  .g-track.drag{cursor:crosshair;}
+
+  .g-presets{display:flex;gap:3px;flex-wrap:wrap;align-items:center;margin-top:3px;}
+  .g-presets button{
+    font-family:'Sarabun',sans-serif;font-size:10px;line-height:1;
+    background:var(--field-bg);color:var(--ink-soft);
+    border:1px solid var(--tick);border-radius:3px;padding:3px 6px;cursor:pointer;
+  }
+  .g-presets button:hover{background:var(--g-color,var(--c-trunk));color:var(--panel-bg);border-color:transparent;}
+  .g-presets button.ok{color:var(--good);border-color:var(--good);}
+  .g-presets .lab{font-size:9.5px;color:var(--ink-soft);margin-inline-end:2px;}
   .g-today{position:absolute;top:-3px;bottom:-3px;width:1.6px;background:var(--c-rust);opacity:.85;}
   .g-ctl{display:flex;gap:4px;align-items:center;}
   .g-ctl select{
@@ -350,7 +375,36 @@ const DEFAULT_TREE = {
                 "กำกับ ติดตาม หน่วยบริการที่ประสบวิกฤตทางการเงิน",
                 "สรุปรวบรวมข้อมูลด้านการเงินการคลัง เพื่อนำเข้าการประชุมคณะกรรมการบริหารการเงินการคลัง"
               ],
-              "num": "1.1"
+              "num": "1.1",
+              "spans": [
+                {
+                  "draft": false,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": false,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": false,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                }
+              ]
             },
             {
               "color": "head",
@@ -363,7 +417,36 @@ const DEFAULT_TREE = {
                 "คำสั่งคณะอนุกรรมการ FDH เขตสุขภาพที่ 1",
                 "คำสั่งคณะทำงานงบค่าเสื่อม เขตสุขภาพที่ 1"
               ],
-              "num": "1.2"
+              "num": "1.2",
+              "spans": [
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                }
+              ]
             },
             {
               "color": "head",
@@ -377,7 +460,45 @@ const DEFAULT_TREE = {
                 "คณะกรรมการบริหารการเงินการคลัง CFO — ทำหนังสือเชิญประธาน คณะทำงาน และผู้เกี่ยวข้อง",
                 "อำนวยการประชุม จัดหา/จัดทำข้อมูลประกอบ และสรุปการประชุมตามมติ"
               ],
-              "num": "2.1"
+              "num": "2.1",
+              "spans": [
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                }
+              ]
             },
             {
               "color": "head",
@@ -390,7 +511,36 @@ const DEFAULT_TREE = {
                 "ประสานการประชุม และจัดหาข้อมูลประกอบ",
                 "สรุปการประชุมและดำเนินการตามมติ (ตามประเด็นที่ได้รับมอบหมาย)"
               ],
-              "num": "2.2"
+              "num": "2.2",
+              "spans": [
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                }
+              ]
             },
             {
               "color": "head",
@@ -403,7 +553,36 @@ const DEFAULT_TREE = {
                 "อำนวยการประชุม และจัดหาข้อมูลประกอบ",
                 "สรุปการประชุมและดำเนินการตามมติ (ร่วมกับสำนักงานหลักประกันสุขภาพแห่งชาติ)"
               ],
-              "num": "2.3"
+              "num": "2.3",
+              "spans": [
+                {
+                  "draft": false,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": false,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": false,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                }
+              ]
             },
             {
               "color": "head",
@@ -415,7 +594,27 @@ const DEFAULT_TREE = {
                 "ดำเนินการจัดโครงการภายใต้การกำกับของ คกก.บริหารการเงินการคลัง เขตสุขภาพที่ 1",
                 "ดำเนินการจัดโครงการของกลุ่มงานบริหารการเงินการคลัง สนง.เขตสุขภาพที่ 1"
               ],
-              "num": "2.4"
+              "num": "2.4",
+              "spans": [
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                },
+                {
+                  "draft": true,
+                  "segs": [
+                    [
+                      0,
+                      11
+                    ]
+                  ]
+                }
+              ]
             }
           ],
           "color": "head",
@@ -440,7 +639,36 @@ const DEFAULT_TREE = {
                     "ตอบ ปัญหาจากการใช้ระบบ FDH",
                     "กำกับ ติดตาม หน่วยบริการ (ลงพื้นที่)"
                   ],
-                  "num": "1.1"
+                  "num": "1.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p1",
@@ -464,7 +692,45 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตามการใช้งบประมาณ",
                     "สรุปรายงาน สำหรับนำเข้าการประชุม พร้อมแจ้งผู้เกี่ยวข้องและผู้บริหารที่เกี่ยวข้อง"
                   ],
-                  "num": "2.1"
+                  "num": "2.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          2
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          3
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p1",
@@ -489,7 +755,70 @@ const DEFAULT_TREE = {
                     "อำนวยความสะดวก ประสานผู้เกี่ยวข้องทั้งพื้นที่และส่วนกลาง",
                     "จัดทำรายงาน รูปแบบการนำเสนอ สำหรับสรุปตรวจราชการ"
                   ],
-                  "num": "3.1"
+                  "num": "3.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          2
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          2,
+                          3
+                        ],
+                        [
+                          6,
+                          7
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          3,
+                          5
+                        ],
+                        [
+                          7,
+                          9
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          3,
+                          5
+                        ],
+                        [
+                          7,
+                          9
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          5,
+                          6
+                        ],
+                        [
+                          9,
+                          10
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p1",
@@ -525,7 +854,63 @@ const DEFAULT_TREE = {
                     "งบทดลอง / งบทดลอง 4 แถว",
                     "งบบริหาร"
                   ],
-                  "num": "1.1"
+                  "num": "1.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p2",
@@ -536,7 +921,18 @@ const DEFAULT_TREE = {
                   "leaves": [
                     "โหลดข้อมูลเพื่อนำมาวิเคราะห์"
                   ],
-                  "num": "1.2"
+                  "num": "1.2",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p2",
@@ -548,7 +944,27 @@ const DEFAULT_TREE = {
                     "ตรวจสอบการบันทึกบัญชีของหน่วยบริการ ตามหลักเกณฑ์ของกองเศรษฐกิจสุขภาพและหลักประกันสุขภาพ",
                     "ให้คำปรึกษากับหน่วยบริการ"
                   ],
-                  "num": "1.3"
+                  "num": "1.3",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p2",
@@ -570,7 +986,27 @@ const DEFAULT_TREE = {
                     "จัดสรร และแจ้งแหล่งเงิน",
                     "ตรวจสอบโครงการ (การใช้งบประมาณ)"
                   ],
-                  "num": "2.1"
+                  "num": "2.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p2",
@@ -584,7 +1020,45 @@ const DEFAULT_TREE = {
                     "แก้ปัญหา และประสานกับด้านการใช้งานระบบให้กับหน่วยบริการในเขตสุขภาพ",
                     "กำกับ ติดตาม และวิเคราะห์รายงานจากระบบ HFA"
                   ],
-                  "num": "2.2"
+                  "num": "2.2",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p2",
@@ -624,7 +1098,99 @@ const DEFAULT_TREE = {
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ",
                     "การติดตาม และประสานข้อมูลจากการประชุมคณะกรรมการสุขภาพระดับพื้นที่แต่ละจังหวัด"
                   ],
-                  "num": "(1)"
+                  "num": "(1)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          2
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          2
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          2
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          3
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          2
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          3
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p3",
@@ -636,7 +1202,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
                   ],
-                  "num": "(2)"
+                  "num": "(2)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p3",
@@ -648,7 +1234,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
                   ],
-                  "num": "(3)"
+                  "num": "(3)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p3",
@@ -660,7 +1266,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
                   ],
-                  "num": "(4)"
+                  "num": "(4)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p3",
@@ -672,7 +1298,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
                   ],
-                  "num": "(5)"
+                  "num": "(5)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p3",
@@ -684,7 +1330,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
                   ],
-                  "num": "(6)"
+                  "num": "(6)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p3",
@@ -696,7 +1362,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
                     "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
                   ],
-                  "num": "(7)"
+                  "num": "(7)",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p3",
@@ -721,7 +1407,54 @@ const DEFAULT_TREE = {
                     "ประสานหน่วยบริการที่ได้รับการอนุมัติเพื่อประกาศใช้",
                     "รวบรวมเป็นฐานข้อมูลในระบบรายงานบัญชีอัตราค่าบริการ"
                   ],
-                  "num": "2.1"
+                  "num": "2.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p3",
@@ -753,7 +1486,27 @@ const DEFAULT_TREE = {
                     "ประสานส่วนกลาง และหน่วยบริการ จัดทำแผน รอบครึ่งปีแรก",
                     "ประสานส่วนกลาง และหน่วยบริการ จัดทำแผน รอบครึ่งปีหลัง"
                   ],
-                  "num": "1.1"
+                  "num": "1.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          1
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          5,
+                          6
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p4",
@@ -767,11 +1520,35 @@ const DEFAULT_TREE = {
                     "จัดทำแผน Planfin รายเดือน (103 แห่ง) พร้อมวิเคราะห์"
                   ],
                   "num": "1.3",
-                  "span": {
-                    "e": 11,
-                    "s": 0,
-                    "set": true
-                  }
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          1
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          5,
+                          6
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p4",
@@ -793,7 +1570,27 @@ const DEFAULT_TREE = {
                     "รับ-ส่ง หนังสือธุรการ งานแผนงบประมาณด้านสาธารณสุข",
                     "ทำขออนุมัติไปราชการ รองผู้อำนวยการสำนักงานเขตสุขภาพที่ 1 (กรณีงานที่เกี่ยวข้อง)"
                   ],
-                  "num": "2.1"
+                  "num": "2.1",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 },
                 {
                   "color": "p4",
@@ -805,7 +1602,27 @@ const DEFAULT_TREE = {
                     "กำกับ ติดตาม การแก้ปัญหาสินทรัพย์ระหว่างทะเบียนสินทรัพย์และระบบ GFMIS",
                     "รายงานผลการแก้ปัญหาสินทรัพย์ต่อผู้บริหารและการประชุมที่เกี่ยวข้อง"
                   ],
-                  "num": "2.2"
+                  "num": "2.2",
+                  "spans": [
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    },
+                    {
+                      "draft": true,
+                      "segs": [
+                        [
+                          0,
+                          11
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ],
               "color": "p4",
@@ -1097,31 +1914,69 @@ const FY_RANGE = 'ต.ค. 2569 – ก.ย. 2570';
 const MONTHS = ['ต.ค.','พ.ย.','ธ.ค.','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.'];
 const CURRENT_M = 0; // ต.ค. = เดือนแรกของปีงบ
 
-/* ช่วงเวลาเก็บเป็นราย "ข้อ" ในกล่อง (node.spans[i]) ไม่ใช่รายกล่อง */
+/* ช่วงเวลาเก็บรายข้อ และ 1 ข้อมีได้หลายช่วง (เช่น ตรวจราชการ 2 รอบ)
+   รูปแบบ: node.spans[i] = { segs:[[เริ่ม,สิ้นสุด],...], draft:true|false }  ·  null = ยังไม่กำหนด */
 function getItemSpan(node, i){
   const sp = (node.spans||[])[i];
-  if(sp && typeof sp.s==='number' && typeof sp.e==='number') return {s:sp.s, e:sp.e, set:!!sp.set};
-  const legacy = node.span; // ข้อมูลรุ่นก่อนที่เก็บเป็นรายกล่อง
-  if(legacy && typeof legacy.s==='number') return {s:legacy.s, e:legacy.e, set:!!legacy.set};
-  return {s:0, e:11, set:false};
+  if(sp && Array.isArray(sp.segs) && sp.segs.length) return {segs:sp.segs, draft:!!sp.draft, set:true};
+  if(sp && typeof sp.s==='number') return {segs:[[sp.s, sp.e]], draft:false, set:true}; // รุ่นช่วงเดียว
+  const lg = node.span; // รุ่นเก่าสุด เก็บรายกล่อง
+  if(lg && typeof lg.s==='number') return {segs:[[lg.s, lg.e]], draft:false, set:true};
+  return {segs:[], draft:false, set:false};
 }
 function ensureSpans(node){
   const n = (node.leaves||[]).length;
   if(!Array.isArray(node.spans)) node.spans = [];
   while(node.spans.length < n) node.spans.push(null);
-  if(node.span){ // ย้ายข้อมูลรุ่นก่อน (รายกล่อง) มาเป็นรายข้อ แล้วเลิกใช้ของเดิม
+  if(node.span){ // ย้ายข้อมูลรุ่นเก่า (รายกล่อง) มาเป็นรายข้อ
     const lg = node.span;
-    for(let i=0;i<n;i++) if(!node.spans[i]) node.spans[i] = {s:lg.s, e:lg.e, set:!!lg.set};
+    for(let i=0;i<n;i++) if(!node.spans[i]) node.spans[i] = {segs:[[lg.s, lg.e]], draft:false};
     delete node.span;
   }
   return node.spans;
 }
-function setItemSpan(node, i, s, e){
-  ensureSpans(node)[i] = {s, e, set:true};
+/* เรียงช่วง + รวมช่วงที่ทับหรือชนกัน */
+function normalizeSegs(segs){
+  const ss = segs.map(x=>[Math.max(0,Math.min(11,x[0])), Math.max(0,Math.min(11,x[1]))])
+                 .map(x=>[Math.min(x[0],x[1]), Math.max(x[0],x[1])])
+                 .sort((a,b)=>a[0]-b[0]);
+  const out = [];
+  ss.forEach(sg=>{
+    const last = out[out.length-1];
+    if(last && sg[0] <= last[1]+1) last[1] = Math.max(last[1], sg[1]);
+    else out.push([sg[0], sg[1]]);
+  });
+  return out;
 }
-function clearItemSpan(node, i){
-  ensureSpans(node)[i] = null;
+function addSegment(node, i, s, e){
+  const cur = getItemSpan(node, i);
+  ensureSpans(node)[i] = { segs: normalizeSegs(cur.segs.concat([[s,e]])), draft:false };
 }
+function setSegments(node, i, segs){
+  ensureSpans(node)[i] = segs.length ? { segs: normalizeSegs(segs), draft:false } : null;
+}
+function removeSegment(node, i, k){
+  const cur = getItemSpan(node, i);
+  const next = cur.segs.filter((_,idx)=>idx!==k);
+  ensureSpans(node)[i] = next.length ? { segs:next, draft:cur.draft } : null;
+}
+function confirmDrafts(scope){
+  leafDescendants(scope).forEach(n=>{
+    const sp = ensureSpans(n);
+    sp.forEach(x=>{ if(x && x.draft) x.draft = false; });
+  });
+}
+
+const PRESETS = [
+  ['ทั้งปี',      [[0,11]]],
+  ['ครึ่งแรก',    [[0,5]]],
+  ['ครึ่งหลัง',   [[6,11]]],
+  ['Q1',          [[0,2]]],
+  ['Q2',          [[3,5]]],
+  ['Q3',          [[6,8]]],
+  ['Q4',          [[9,11]]],
+  ['2 รอบตรวจ',   [[3,5],[7,9]]]
+];
 function leafDescendants(node, out){
   out = out || [];
   if(node.kind==='leaf'){ out.push(node); return out; }
@@ -1149,7 +2004,7 @@ function renderGantt(scope){
   const allItems = groups.reduce((a,g)=>a.concat(g.items),[]);
   const unsetCount = allItems.filter(it=>!it.span.set).length;
   const todayLeft = ((CURRENT_M + 0.5)/12)*100;
-  const opts = (sel)=>MONTHS.map((m,i)=>`<option value="${i}" ${i===sel?'selected':''}>${m}</option>`).join('');
+  const draftCount = allItems.filter(it=>it.span.draft).length;
 
   const monthHead = `
     <div class="g-row g-months">
@@ -1166,35 +2021,44 @@ function renderGantt(scope){
     rowsHtml = `<div class="g-empty">กิ่งนี้ยังไม่มีรายการปฏิบัติ — เพิ่มได้ในแผงรายละเอียดด้านล่าง</div>`;
   } else {
     groups.forEach(g=>{
-      const setSpans = g.items.filter(it=>it.span.set).map(it=>it.span);
-      let rollup = '';
-      if(setSpans.length){
-        const s = Math.min(...setSpans.map(x=>x.s)), e = Math.max(...setSpans.map(x=>x.e));
-        rollup = `<div class="g-rollup" style="left:${(s/12)*100}%;width:${((e-s+1)/12)*100}%;"></div>`;
-      }
+      const allSegs = g.items.reduce((a,it)=>a.concat(it.span.segs),[]);
+      const rollup = normalizeSegs(allSegs).map(sg=>
+        `<div class="g-rollup" style="left:${(sg[0]/12)*100}%;width:${((sg[1]-sg[0]+1)/12)*100}%;"></div>`).join('');
       const numHtml = g.node.num ? `<span class="g-num">${esc(g.node.num)}</span>` : '';
+      const presetBtns = APP.canEdit ? `
+        <div class="g-presets">
+          <span class="lab">ใช้กับทุกข้อในกล่อง:</span>
+          ${PRESETS.map((p,pi)=>`<button data-gpreset="${g.node.id}" data-pi="${pi}">${p[0]}</button>`).join('')}
+          <button data-gclearbox="${g.node.id}">ล้าง</button>
+          ${g.items.some(it=>it.span.draft)?`<button class="ok" data-gconfirm="${g.node.id}">✓ ยืนยันร่าง</button>`:''}
+        </div>` : '';
       rowsHtml += `
         <div class="g-row g-group">
-          <div class="g-label">${numHtml}${esc(g.node.label).replace(/\n/g,' ')}</div>
+          <div class="g-label">${numHtml}${esc(g.node.label).replace(/\n/g,' ')}${presetBtns}</div>
           <div class="g-track">${rollup}<div class="g-today" style="left:${todayLeft}%;"></div></div>
           <div></div>
         </div>`;
       g.items.forEach(it=>{
         const sp = it.span;
-        const left = (sp.s/12)*100, width = ((sp.e - sp.s + 1)/12)*100;
-        const barText = sp.set ? `${MONTHS[sp.s]}–${MONTHS[sp.e]}` : 'ยังไม่กำหนด';
+        let bars;
+        if(!sp.set){
+          bars = `<div class="g-bar unset" style="left:0;width:100%;">ยังไม่กำหนด</div>`;
+        } else {
+          bars = sp.segs.map((sg,k)=>{
+            const left = (sg[0]/12)*100, width = ((sg[1]-sg[0]+1)/12)*100;
+            return `<div class="g-bar ${sp.draft?'draft':''}" style="left:${left}%;width:${width}%;">${MONTHS[sg[0]]}–${MONTHS[sg[1]]}`
+              + (APP.canEdit?`<button class="g-seg-del" data-gid="${g.node.id}" data-gi="${it.i}" data-gk="${k}" title="ลบช่วงนี้">✕</button>`:'')
+              + `</div>`;
+          }).join('');
+        }
         rowsHtml += `
           <div class="g-row g-item">
             <div class="g-label">${esc(it.text)}</div>
-            <div class="g-track">
-              <div class="g-bar ${sp.set?'':'unset'}" style="left:${left}%;width:${width}%;">${barText}</div>
+            <div class="g-track ${APP.canEdit?'drag':''}" data-gid="${g.node.id}" data-gi="${it.i}" title="${APP.canEdit?'ลากคลุมเดือนเพื่อเพิ่มช่วง':''}">
+              ${bars}
               <div class="g-today" style="left:${todayLeft}%;" title="เดือนปัจจุบัน"></div>
             </div>
-            <div class="g-ctl">${APP.canEdit? `
-              <select data-gid="${g.node.id}" data-gi="${it.i}" data-which="s" aria-label="เดือนเริ่ม">${opts(sp.s)}</select>
-              <select data-gid="${g.node.id}" data-gi="${it.i}" data-which="e" aria-label="เดือนสิ้นสุด">${opts(sp.e)}</select>
-              ${sp.set?`<button data-gclear="${g.node.id}" data-gi="${it.i}" title="ล้างช่วงเวลา">✕</button>`:''}
-            `:''}</div>
+            <div class="g-ctl">${APP.canEdit && sp.set? `<button data-gclear="${g.node.id}" data-gi="${it.i}" title="ล้างทุกช่วงของรายการนี้">✕ ล้าง</button>`:''}</div>
           </div>`;
       });
     });
@@ -1207,7 +2071,7 @@ function renderGantt(scope){
       <div>
         <div class="g-fy">${FY_LABEL} · ${FY_RANGE}</div>
         <h3>${esc(scope.label).replace(/\n/g,' ')}</h3>
-        <div class="g-note">${allItems.length} รายการปฏิบัติ${unsetCount? ` · ยังไม่กำหนดช่วงเวลา ${unsetCount} รายการ (แถบเส้นประ) — เอกสารคำสั่งมอบหมายงานไม่ได้ระบุไว้${APP.canEdit?' เลือกเดือนเริ่ม–สิ้นสุดทางขวาของแต่ละแถบ บันทึกอัตโนมัติ':''}` : ' · กำหนดช่วงเวลาครบแล้ว'}</div>
+        <div class="g-note">${allItems.length} รายการปฏิบัติ${draftCount? ` · <b style="color:var(--g-color)">ร่าง ${draftCount} รายการ (แถบลายทาง)</b> รอตรวจและยืนยัน`:''}${unsetCount? ` · ยังไม่กำหนด ${unsetCount} รายการ (เส้นประ)`:''}${!draftCount&&!unsetCount? ' · ยืนยันช่วงเวลาครบแล้ว':''}${APP.canEdit? '<br>วิธีกำหนด: <b>ลากเมาส์คลุมเดือน</b>บนแถบเพื่อเพิ่มช่วง (1 รายการมีได้หลายช่วง) · ปุ่มลัดใต้ชื่อกล่องใช้กับทุกข้อพร้อมกัน · กดกากบาทมุมแถบเพื่อลบช่วงนั้น':''}</div>
       </div>
       <button class="g-close" id="gClose" aria-label="ปิด">✕</button>
     </div>
@@ -1220,29 +2084,84 @@ function renderGantt(scope){
     </div>`;
 
   dlg.querySelector('#gClose').onclick = ()=>dlg.close();
-  dlg.querySelectorAll('select[data-gid]').forEach(sel=>{
-    sel.onchange = ()=>{
-      const f = findWithParent(APP.tree, sel.dataset.gid, null);
-      if(!f) return;
-      const i = +sel.dataset.gi;
-      const cur = getItemSpan(f.node, i);
-      let s = cur.s, e = cur.e;
-      if(sel.dataset.which==='s') s = +sel.value; else e = +sel.value;
-      if(e < s){ if(sel.dataset.which==='s') e = s; else s = e; }
-      setItemSpan(f.node, i, s, e);
-      persist();
-      renderGantt(scope);
+
+  const nodeById = (id)=>{ const f = findWithParent(APP.tree, id, null); return f && f.node; };
+  const after = ()=>{ persist(); renderGantt(scope); };
+
+  // ลบช่วงเดียว
+  dlg.querySelectorAll('.g-seg-del').forEach(btn=>{
+    btn.onclick = (e)=>{
+      e.stopPropagation(); e.preventDefault();
+      const n = nodeById(btn.dataset.gid); if(!n) return;
+      removeSegment(n, +btn.dataset.gi, +btn.dataset.gk);
+      after();
     };
   });
+  // ล้างทุกช่วงของรายการ
   dlg.querySelectorAll('button[data-gclear]').forEach(btn=>{
     btn.onclick = ()=>{
-      const f = findWithParent(APP.tree, btn.dataset.gclear, null);
-      if(!f) return;
-      clearItemSpan(f.node, +btn.dataset.gi);
-      persist();
-      renderGantt(scope);
+      const n = nodeById(btn.dataset.gclear); if(!n) return;
+      setSegments(n, +btn.dataset.gi, []);
+      after();
     };
   });
+  // ปุ่มลัด: ใช้กับทุกข้อในกล่อง
+  dlg.querySelectorAll('button[data-gpreset]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const n = nodeById(btn.dataset.gpreset); if(!n) return;
+      const segs = PRESETS[+btn.dataset.pi][1];
+      (n.leaves||[]).forEach((_,i)=> setSegments(n, i, segs.map(x=>x.slice())));
+      after();
+    };
+  });
+  dlg.querySelectorAll('button[data-gclearbox]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const n = nodeById(btn.dataset.gclearbox); if(!n) return;
+      (n.leaves||[]).forEach((_,i)=> setSegments(n, i, []));
+      after();
+    };
+  });
+  dlg.querySelectorAll('button[data-gconfirm]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const n = nodeById(btn.dataset.gconfirm); if(!n) return;
+      confirmDrafts(n);
+      after();
+    };
+  });
+
+  // ลากคลุมเดือนบนแถบเพื่อเพิ่มช่วง
+  if(APP.canEdit){
+    dlg.querySelectorAll('.g-track[data-gid]').forEach(track=>{
+      track.addEventListener('mousedown', (e)=>{
+        if(e.button!==0 || e.target.closest('.g-seg-del')) return;
+        e.preventDefault();
+        const rect = track.getBoundingClientRect();
+        const monthAt = (x)=> Math.max(0, Math.min(11, Math.floor((x - rect.left)/rect.width*12)));
+        const m0 = monthAt(e.clientX);
+        let m1 = m0;
+        const pv = document.createElement('div');
+        pv.className = 'g-bar g-preview';
+        track.appendChild(pv);
+        const draw = ()=>{
+          const s = Math.min(m0,m1), en = Math.max(m0,m1);
+          pv.style.left = (s/12*100)+'%';
+          pv.style.width = ((en-s+1)/12*100)+'%';
+          pv.textContent = MONTHS[s]+'–'+MONTHS[en];
+        };
+        draw();
+        const mv = (ev)=>{ m1 = monthAt(ev.clientX); draw(); };
+        const up = ()=>{
+          document.removeEventListener('mousemove', mv);
+          document.removeEventListener('mouseup', up);
+          pv.remove();
+          const n = nodeById(track.dataset.gid);
+          if(n){ addSegment(n, +track.dataset.gi, Math.min(m0,m1), Math.max(m0,m1)); after(); }
+        };
+        document.addEventListener('mousemove', mv);
+        document.addEventListener('mouseup', up);
+      });
+    });
+  }
 }
 
 function showToast(msg, ok){
