@@ -1,0 +1,1314 @@
+<title>ผังงานกลุ่มงาน CFO</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sarabun:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root{
+    --paper:#F3EEE0;
+    --paper-line:rgba(27,42,51,0.07);
+    --ink:#16242C;
+    --ink-soft:#54666F;
+    --panel-bg:#FFFFFF;
+    --field-bg:#F7F4EA;
+    --trunk:#2B4A5E;
+    --c-trunk:#2B4A5E;
+    --c-head:#14385A;
+    --c-head2:#8A4A6B;
+    --c-rust:#B24A24;
+    --c-p1:#2F6FA8;
+    --c-p2:#2E8563;
+    --c-p3:#B07A2E;
+    --c-p4:#7A5AA8;
+    --good:#2E8563;
+    --bad:#B24A24;
+    --shadow:0 1px 2px rgba(22,36,44,.08), 0 10px 26px -16px rgba(22,36,44,.28);
+    --tick:rgba(27,42,51,0.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0A2340;
+      --paper-line:rgba(255,255,255,.06);
+      --ink:#E7F1FF;
+      --ink-soft:#9FB9D6;
+      --panel-bg:#0F2E52;
+      --field-bg:#0A2A4D;
+      --trunk:#8FC7E8;
+      --c-trunk:#8FC7E8;
+      --c-head:#BFE0F5;
+      --c-head2:#E3A8C4;
+      --c-rust:#F0A277;
+      --c-p1:#79BBF2;
+      --c-p2:#79DCB0;
+      --c-p3:#F0C784;
+      --c-p4:#D3B7F5;
+      --good:#79DCB0;
+      --bad:#F0A277;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 26px -16px rgba(0,0,0,.6);
+      --tick:rgba(255,255,255,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0A2340;
+    --paper-line:rgba(255,255,255,.06);
+    --ink:#E7F1FF;
+    --ink-soft:#9FB9D6;
+    --panel-bg:#0F2E52;
+    --field-bg:#0A2A4D;
+    --trunk:#8FC7E8;
+    --c-trunk:#8FC7E8;
+    --c-head:#BFE0F5;
+    --c-head2:#E3A8C4;
+    --c-rust:#F0A277;
+    --c-p1:#79BBF2;
+    --c-p2:#79DCB0;
+    --c-p3:#F0C784;
+    --c-p4:#D3B7F5;
+    --good:#79DCB0;
+    --bad:#F0A277;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 26px -16px rgba(0,0,0,.6);
+    --tick:rgba(255,255,255,0.4);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0/28px 28px,
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px) 0 0/28px 28px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'Sarabun',"Noto Sans Thai",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:34px 20px 70px;}
+  .disp{font-family:'Chakra Petch','Sarabun',sans-serif;}
+
+  .head-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--c-trunk);font-weight:600;margin:0 0 8px;
+  }
+  .badge-edit{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;
+    color:var(--good);border:1px solid var(--good);border-radius:20px;padding:2px 10px;
+    margin-bottom:8px;white-space:nowrap;
+  }
+  .title{
+    font-family:'Chakra Petch',sans-serif;
+    font-size:clamp(24px,3.6vw,32px);
+    font-weight:700;margin:0 0 6px;color:var(--ink);text-wrap:balance;
+  }
+  .subtitle{font-size:14.5px;color:var(--ink-soft);margin:0 0 24px;max-width:64ch;line-height:1.65;}
+
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;margin-bottom:26px;
+  }
+  .stat{
+    background:var(--panel-bg);border:1px solid var(--tick);border-radius:2px;
+    padding:12px 16px;position:relative;
+  }
+  .stat::before,.stat::after{content:"";position:absolute;width:7px;height:7px;border:1.5px solid var(--c-trunk);top:4px;left:4px;border-right:none;border-bottom:none;}
+  .stat::after{left:auto;right:4px;top:auto;bottom:4px;border:1.5px solid var(--c-trunk);border-left:none;border-top:none;}
+  .stat .n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-size:24px;font-weight:600;color:var(--c-trunk);line-height:1.1;}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px 20px;margin-bottom:16px;font-size:12px;color:var(--ink-soft);align-items:center;}
+  .legend .sw{display:inline-flex;align-items:center;gap:6px;}
+  .legend .dot{width:10px;height:10px;border-radius:2px;flex:none;}
+
+  .chart-frame{
+    background:var(--panel-bg);border:1px solid var(--tick);border-radius:3px;
+    margin-bottom:18px;box-shadow:var(--shadow);
+  }
+  .chart-scroll{overflow-x:auto;padding:22px 10px;}
+  .chart-hint{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);
+    padding:8px 18px;border-top:1px dashed var(--tick);letter-spacing:.03em;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  }
+  #canvas{position:relative;}
+  svg.lines{position:absolute;top:0;left:0;pointer-events:none;overflow:visible;}
+
+  .node{
+    position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;border-radius:2px;padding:3px 6px;overflow:hidden;
+    font-family:'Chakra Petch',sans-serif;font-weight:600;line-height:1.16;
+    background:var(--panel-bg);border:1.6px solid var(--node-color,var(--c-trunk));
+    color:var(--ink);cursor:pointer;user-select:none;
+  }
+  .node .lbl{overflow-wrap:anywhere;word-break:break-word;max-width:100%;}
+
+  /* ก้าน + กิ่งรายการปฏิบัติใต้กล่องงานย่อย */
+  .comb{
+    position:absolute;
+    border-left:1.6px solid var(--node-color,var(--c-trunk));
+    padding-top:4px;
+  }
+  .comb-item{
+    position:relative;
+    padding:3px 2px 3px 19px;
+    font-family:'Sarabun',sans-serif;
+    font-size:9.5px;line-height:1.32;color:var(--ink);
+    overflow-wrap:anywhere;word-break:break-word;
+  }
+  .comb-item::before{
+    content:"";position:absolute;left:0;top:9.6px;
+    width:11px;height:1.4px;background:var(--node-color,var(--c-trunk));
+  }
+  .comb-item::after{
+    content:"";position:absolute;left:10px;top:7.6px;
+    width:5px;height:5px;border-radius:1px;
+    background:var(--node-color,var(--c-trunk));
+  }
+  .node:hover{background:color-mix(in srgb, var(--node-color,var(--c-trunk)) 12%, var(--panel-bg));}
+  .node:focus-visible{outline:2px solid var(--node-color,var(--c-trunk));outline-offset:2px;}
+  .node[data-selected="true"]{background:var(--node-color,var(--c-trunk));color:var(--panel-bg);}
+  .node.kind-root{font-size:14px;}
+  .node.kind-head,.node.kind-placeholder-head{font-size:12.5px;}
+  .node.kind-person{font-size:12px;}
+  .node.kind-task{font-size:11.2px;font-weight:500;}
+  .node.kind-leaf{font-size:11px;font-weight:500;}
+  .node .num{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:9.5px;color:var(--node-color,var(--c-trunk));margin-bottom:1px;}
+  .node[data-selected="true"] .num{color:var(--panel-bg);opacity:.85;}
+  .node .sub{font-family:'Sarabun',sans-serif;font-weight:400;font-size:9.5px;color:var(--ink-soft);margin-top:1px;}
+  .node[data-selected="true"] .sub{color:var(--panel-bg);opacity:.85;}
+  .node.kind-placeholder-head{border-style:dashed;color:var(--c-rust);}
+  .node.kind-placeholder-head .num{color:var(--c-rust);}
+
+  .panel{
+    background:var(--panel-bg);border:1px solid var(--tick);border-radius:3px;
+    padding:20px 22px;box-shadow:var(--shadow);position:relative;
+  }
+  .panel::before{content:"รายละเอียด";position:absolute;top:-9px;left:16px;background:var(--paper);padding:0 8px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .panel-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--panel-color,var(--c-trunk));letter-spacing:.05em;margin-bottom:6px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
+  .panel-title{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:18px;margin:0 0 8px;color:var(--ink);text-wrap:balance;}
+  .panel-full{font-size:13.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.6;font-style:italic;}
+  ul.panel-leaves{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:7px;}
+  ul.panel-leaves li{
+    position:relative;padding:7px 12px 7px 22px;font-size:13.5px;line-height:1.55;
+    background:color-mix(in srgb, var(--panel-color,var(--c-trunk)) 7%, var(--panel-bg));border-radius:3px;
+  }
+  ul.panel-leaves li::before{content:"";position:absolute;left:9px;top:13px;width:6px;height:6px;background:var(--panel-color,var(--c-trunk));border-radius:1px;}
+
+  .edit-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+  button.pbtn{
+    font-family:'Sarabun',sans-serif;font-size:12.5px;font-weight:600;
+    background:var(--field-bg);color:var(--ink);border:1px solid var(--tick);
+    padding:6px 13px;border-radius:4px;cursor:pointer;
+  }
+  button.pbtn:hover{background:color-mix(in srgb, var(--panel-color,var(--c-trunk)) 10%, var(--field-bg));}
+  button.pbtn.primary{background:var(--panel-color,var(--c-trunk));color:var(--panel-bg);border-color:transparent;}
+  button.pbtn.danger{color:var(--bad);border-color:var(--bad);}
+  button.pbtn:focus-visible{outline:2px solid var(--panel-color,var(--c-trunk));outline-offset:2px;}
+
+  .efield{margin-bottom:10px;}
+  .efield label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;}
+  .efield input[type="text"], .efield textarea{
+    width:100%;font-family:'Sarabun',sans-serif;font-size:13.5px;color:var(--ink);
+    background:var(--field-bg);border:1px solid var(--tick);border-radius:4px;padding:8px 10px;
+    resize:vertical;
+  }
+  .efield textarea{min-height:88px;line-height:1.5;}
+  .efield input[type="text"]:focus, .efield textarea:focus{outline:2px solid var(--panel-color,var(--c-trunk));outline-offset:1px;}
+  .toast{font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:10px;min-height:16px;}
+  .toast.ok{color:var(--good);}
+  .toast.err{color:var(--bad);}
+
+  footer.note{margin-top:26px;font-size:12px;color:var(--ink-soft);border-top:1px dashed var(--tick);padding-top:14px;line-height:1.75;}
+  footer.note b{color:var(--c-rust);}
+
+  /* ---- ป๊อปอัป Gantt ---- */
+  dialog#ganttDlg{
+    border:1px solid var(--tick);border-radius:4px;padding:0;
+    background:var(--panel-bg);color:var(--ink);
+    max-width:min(1040px,94vw);width:min(1040px,94vw);max-height:88vh;
+    box-shadow:0 24px 70px -20px rgba(0,0,0,.45);
+  }
+  dialog#ganttDlg::backdrop{background:rgba(10,24,38,.55);backdrop-filter:blur(2px);}
+  .g-head{
+    display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;
+    padding:18px 22px 14px;border-bottom:1px solid var(--tick);
+    position:sticky;top:0;background:var(--panel-bg);z-index:2;
+  }
+  .g-head h3{font-family:'Chakra Petch',sans-serif;font-size:17px;margin:0 0 3px;color:var(--ink);}
+  .g-head .g-fy{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--g-color,var(--c-trunk));letter-spacing:.04em;}
+  .g-head .g-note{font-size:11.5px;color:var(--ink-soft);margin-top:5px;max-width:62ch;line-height:1.5;}
+  .g-close{
+    margin-inline-start:auto;background:var(--field-bg);border:1px solid var(--tick);
+    color:var(--ink);font-size:16px;line-height:1;cursor:pointer;
+    width:30px;height:30px;border-radius:4px;flex:none;
+  }
+  .g-close:hover{background:color-mix(in srgb, var(--g-color,var(--c-trunk)) 14%, var(--field-bg));}
+  .g-body{padding:14px 22px 22px;overflow:auto;max-height:calc(88vh - 104px);}
+
+  .g-grid{min-width:760px;}
+  .g-row{display:grid;grid-template-columns:250px 1fr var(--ctl-w,0px);gap:10px;align-items:center;padding:3px 0;}
+  .g-row.g-months{padding-bottom:8px;border-bottom:1px solid var(--tick);margin-bottom:6px;position:sticky;top:0;background:var(--panel-bg);z-index:1;}
+  .g-group{
+    margin-top:12px;padding-top:7px;border-top:1px dashed var(--tick);
+  }
+  .g-group:first-of-type{margin-top:2px;border-top:none;}
+  .g-group .g-label{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12.5px;}
+  .g-row.g-item .g-label{padding-inline-start:14px;position:relative;color:var(--ink-soft);}
+  .g-row.g-item .g-label::before{
+    content:"";position:absolute;left:3px;top:7px;width:6px;height:1.4px;
+    background:var(--g-color,var(--c-trunk));
+  }
+  .g-rollup{
+    position:absolute;top:9px;height:4px;border-radius:2px;
+    background:var(--g-color,var(--c-trunk));opacity:.35;
+  }
+  .g-mhead{display:grid;grid-template-columns:repeat(12,1fr);font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ink-soft);text-align:center;}
+  .g-mhead span{padding:2px 0;}
+  .g-mhead span.q{border-inline-start:1px solid var(--tick);}
+  .g-qhead{display:grid;grid-template-columns:repeat(4,1fr);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--ink-soft);text-align:center;margin-bottom:2px;}
+
+  .g-label{font-size:12px;line-height:1.3;color:var(--ink);overflow-wrap:anywhere;}
+  .g-label .g-num{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--g-color,var(--c-trunk));margin-inline-end:5px;}
+  .g-row.hl .g-label{font-weight:700;}
+  .g-track{
+    position:relative;height:22px;border-radius:3px;
+    background:
+      repeating-linear-gradient(90deg, var(--tick) 0 1px, transparent 1px calc(100%/12));
+    background-color:color-mix(in srgb, var(--g-color,var(--c-trunk)) 5%, transparent);
+  }
+  .g-bar{
+    position:absolute;top:3px;height:16px;border-radius:3px;
+    background:var(--g-color,var(--c-trunk));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--panel-bg);
+    white-space:nowrap;overflow:hidden;
+  }
+  .g-bar.unset{
+    background:transparent;border:1.4px dashed var(--g-color,var(--c-trunk));
+    color:var(--ink-soft);opacity:.75;
+  }
+  .g-today{position:absolute;top:-3px;bottom:-3px;width:1.6px;background:var(--c-rust);opacity:.85;}
+  .g-ctl{display:flex;gap:4px;align-items:center;}
+  .g-ctl select{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink);
+    background:var(--field-bg);border:1px solid var(--tick);border-radius:4px;padding:2px 3px;
+    width:58px;
+  }
+  .g-ctl select:focus-visible{outline:2px solid var(--g-color,var(--c-trunk));outline-offset:1px;}
+  .g-ctl button{
+    background:none;border:none;color:var(--ink-soft);cursor:pointer;
+    font-size:13px;line-height:1;padding:2px 3px;border-radius:3px;
+  }
+  .g-ctl button:hover{color:var(--bad);background:var(--field-bg);}
+  .g-empty{font-size:12.5px;color:var(--ink-soft);padding:12px 0;}
+  .g-foot{font-size:11px;color:var(--ink-soft);margin-top:14px;padding-top:10px;border-top:1px dashed var(--tick);line-height:1.6;}
+</style>
+
+<div class="wrap">
+  <div class="head-row">
+    <p class="eyebrow disp">กลุ่มงานบริหารการเงินและการคลัง · สนง.เขตสุขภาพที่ 1</p>
+    <span class="badge-edit" id="editBadge" hidden>✏ โหมดแก้ไข: คุณแก้ไขข้อมูลนี้ได้</span>
+  </div>
+  <h1 class="title">แผนผังโครงสร้างงาน (Org Chart)</h1>
+  <p class="subtitle">แตกจากคำสั่งมอบหมายงาน (ร่าง) อัปเดต 23 ก.ย. 2569 — ก้านใต้กล่องงานย่อยแตกกิ่งเป็นรายการปฏิบัติทีละข้อ คลิกกล่องใดก็ได้เพื่อดูรายละเอียดและไทม์ไลน์ปีงบประมาณ</p>
+
+  <div class="stats" id="stats"></div>
+  <div class="legend" id="legend"></div>
+
+  <div class="chart-frame">
+    <div class="chart-scroll"><div id="canvas"></div></div>
+    <div class="chart-hint">
+      <span>◂ เลื่อนซ้าย–ขวาเพื่อดูทั้งผัง — กล่องขอบเส้นประ = ยังไม่มีข้อมูล</span>
+      <span id="loadState">กำลังโหลด…</span>
+    </div>
+  </div>
+
+  <div class="panel" id="panel"></div>
+
+  <dialog id="ganttDlg"></dialog>
+
+  <footer class="note">
+    ที่มา: CFO-(ร่าง) คำสั่งมอบหมายงานเจ้าหน้าที่ สนง.เขต Update 23 ก.ย. 2569 (ภาคผนวก 2)<br>
+    กิ่ง "นโยบาย/ยุทธศาสตร์ และงานร่วมทั้งทีม" ใต้พิทักษ์ นันธิ รวมงานข้อ 1 และข้อ 2 ไว้ด้วยกัน — ข้อ 2 เป็นรายการที่เอกสารต้นฉบับระบุผู้รับผิดชอบร่วมกันทั้ง 5 คน<br>
+    <b>หมายเหตุ:</b> หน้านี้เป็นสำเนาแบบอ่านอย่างเดียว ข้อมูล ณ 1 ต.ค. 2569 — ฉบับที่แก้ไขข้อมูลได้อยู่ในระบบ Claude Artifact
+  </footer>
+</div>
+
+<script>
+const DEFAULT_TREE = {
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "color": "head",
+              "full": "งานบริหารการเงินการคลัง",
+              "id": "h-1-1",
+              "kind": "leaf",
+              "label": "งานบริหารการเงินการคลัง",
+              "leaves": [
+                "ให้คำปรึกษาแก่จังหวัดและหน่วยบริการ ด้านการเงินการคลัง (CFO)",
+                "กำกับ ติดตาม หน่วยบริการที่ประสบวิกฤตทางการเงิน",
+                "สรุปรวบรวมข้อมูลด้านการเงินการคลัง เพื่อนำเข้าการประชุมคณะกรรมการบริหารการเงินการคลัง"
+              ],
+              "num": "1.1"
+            },
+            {
+              "color": "head",
+              "full": "จัดทำคำสั่งแต่งตั้งคณะกรรมการการเงินการคลังของเขตสุขภาพ",
+              "id": "h-1-2",
+              "kind": "leaf",
+              "label": "คำสั่งแต่งตั้ง คกก.",
+              "leaves": [
+                "คำสั่งคณะกรรมการบริหารการเงินการคลัง เขตสุขภาพที่ 1",
+                "คำสั่งคณะอนุกรรมการ FDH เขตสุขภาพที่ 1",
+                "คำสั่งคณะทำงานงบค่าเสื่อม เขตสุขภาพที่ 1"
+              ],
+              "num": "1.2"
+            },
+            {
+              "color": "head",
+              "full": "งานจากส่วนกลาง (กศภ. / กยผ.)",
+              "id": "h-2-1",
+              "kind": "leaf",
+              "label": "งานจากส่วนกลาง",
+              "leaves": [
+                "กองเศรษฐกิจสุขภาพและหลักประกันสุขภาพ (กศภ.) — Self Monitor (บัญชี)",
+                "เชิญอบรม/ประชุม ที่ต้องจัดสรรโควตา (กลาง) ร่วมกับกองยุทธศาสตร์และแผนงาน (กยผ.)",
+                "คณะกรรมการบริหารการเงินการคลัง CFO — ทำหนังสือเชิญประธาน คณะทำงาน และผู้เกี่ยวข้อง",
+                "อำนวยการประชุม จัดหา/จัดทำข้อมูลประกอบ และสรุปการประชุมตามมติ"
+              ],
+              "num": "2.1"
+            },
+            {
+              "color": "head",
+              "full": "คณะกรรมการกำหนดแนวทางการใช้จ่ายเงินกองทุน UC ของหน่วยบริการสังกัด สป.สธ. ระดับประเทศ (7x7)",
+              "id": "h-2-2",
+              "kind": "leaf",
+              "label": "คกก. 7x7 ระดับประเทศ",
+              "leaves": [
+                "เชิญประชุม/ผู้ได้รับมอบหมาย",
+                "ประสานการประชุม และจัดหาข้อมูลประกอบ",
+                "สรุปการประชุมและดำเนินการตามมติ (ตามประเด็นที่ได้รับมอบหมาย)"
+              ],
+              "num": "2.2"
+            },
+            {
+              "color": "head",
+              "full": "คณะทำงานกำหนดแนวทางการใช้จ่ายเงินกองทุน UC ของหน่วยบริการสังกัด สป.สธ. ระดับเขต (5x5)",
+              "id": "h-2-3",
+              "kind": "leaf",
+              "label": "คณะทำงาน 5x5 ระดับเขต",
+              "leaves": [
+                "ทำหนังสือเชิญ ประธาน คณะทำงาน และผู้เกี่ยวข้อง เข้าร่วมการประชุม",
+                "อำนวยการประชุม และจัดหาข้อมูลประกอบ",
+                "สรุปการประชุมและดำเนินการตามมติ (ร่วมกับสำนักงานหลักประกันสุขภาพแห่งชาติ)"
+              ],
+              "num": "2.3"
+            },
+            {
+              "color": "head",
+              "full": "แผนงานโครงการ",
+              "id": "h-2-4",
+              "kind": "leaf",
+              "label": "แผนงานโครงการ",
+              "leaves": [
+                "ดำเนินการจัดโครงการภายใต้การกำกับของ คกก.บริหารการเงินการคลัง เขตสุขภาพที่ 1",
+                "ดำเนินการจัดโครงการของกลุ่มงานบริหารการเงินการคลัง สนง.เขตสุขภาพที่ 1"
+              ],
+              "num": "2.4"
+            }
+          ],
+          "color": "head",
+          "full": "ศึกษา วิเคราะห์ข้อมูลด้านการเงินการคลังเพื่อจัดทำนโยบายและยุทธศาสตร์ฯ รวมกับงานอื่น ๆ ที่ได้รับมอบหมาย — เอกสารต้นฉบับระบุผู้รับผิดชอบร่วมกันทั้ง 5 คน",
+          "id": "h-m1",
+          "kind": "task",
+          "label": "นโยบาย/ยุทธศาสตร์ และงานอื่นๆที่ได้รับมอบหมาย",
+          "num": "1-2"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "color": "p1",
+                  "full": "การเคลมผ่านระบบ FDH (Financial Data Hub)",
+                  "id": "k-1-1",
+                  "kind": "leaf",
+                  "label": "งาน FDH",
+                  "leaves": [
+                    "สรุป จัดทำรายงาน FDH เสนอที่ประชุม และแจ้งหน่วยบริการฯ",
+                    "ตอบ ปัญหาจากการใช้ระบบ FDH",
+                    "กำกับ ติดตาม หน่วยบริการ (ลงพื้นที่)"
+                  ],
+                  "num": "1.1"
+                }
+              ],
+              "color": "p1",
+              "full": "ศึกษา วิเคราะห์ข้อมูลด้านการเงินการคลังของเขตสุขภาพเพื่อจัดทำนโยบายและยุทธศาสตร์ในการพัฒนาด้านการเงินการคลังของเขตสุขภาพให้สอดคล้องกับนโยบายของประเทศ",
+              "id": "k-m1",
+              "kind": "task",
+              "label": "นโยบาย/ยุทธศาสตร์การเงินการคลัง",
+              "num": "1"
+            },
+            {
+              "children": [
+                {
+                  "color": "p1",
+                  "full": "บริหารงบพัฒนาระบบบริการและนโยบายที่สำคัญเขตสุขภาพที่ 1 (งบพัฒนาเขตสุขภาพ)",
+                  "id": "k-2-1",
+                  "kind": "leaf",
+                  "label": "งบพัฒนาเขตสุขภาพ",
+                  "leaves": [
+                    "จัดสรรงบพัฒนาเขตสุขภาพ ที่ได้รับจากเงิน CF ระดับเขตสุขภาพ",
+                    "ประสานแจ้งหน่วยบริการและเจ้าของโครงการ",
+                    "กำกับ ติดตามการใช้งบประมาณ",
+                    "สรุปรายงาน สำหรับนำเข้าการประชุม พร้อมแจ้งผู้เกี่ยวข้องและผู้บริหารที่เกี่ยวข้อง"
+                  ],
+                  "num": "2.1"
+                }
+              ],
+              "color": "p1",
+              "full": "งานจัดการงบประมาณ",
+              "id": "k-m2",
+              "kind": "task",
+              "label": "งานจัดการงบประมาณ",
+              "num": "2"
+            },
+            {
+              "children": [
+                {
+                  "color": "p1",
+                  "full": "งานตรวจราชการและนิเทศงาน",
+                  "id": "k-3-1",
+                  "kind": "leaf",
+                  "label": "ตรวจราชการ/นิเทศงาน",
+                  "leaves": [
+                    "ประสานจังหวัด เพื่อจัดทำร่างคำสั่งคณะตรวจราชการและนิเทศงาน",
+                    "วางแผนการออกตรวจราชการฯ รายงานประธาน/เลขาฯ คณะตรวจราชการฯ",
+                    "รวบรวมข้อมูลสำหรับตรวจราชการ (งบการเงิน, รายได้กองทุน, ข้อมูลหน่วยบริการ, รพ.สต.ถ่ายโอน ฯลฯ)",
+                    "อำนวยความสะดวก ประสานผู้เกี่ยวข้องทั้งพื้นที่และส่วนกลาง",
+                    "จัดทำรายงาน รูปแบบการนำเสนอ สำหรับสรุปตรวจราชการ"
+                  ],
+                  "num": "3.1"
+                }
+              ],
+              "color": "p1",
+              "full": "งานตรวจราชการและนิเทศงาน",
+              "id": "k-m3",
+              "kind": "task",
+              "label": "งานตรวจราชการและนิเทศงาน",
+              "num": "3"
+            }
+          ],
+          "color": "p1",
+          "full": "นางกัญชพร วิมลสันติ — เจ้าหน้าที่ผู้รับผิดชอบ",
+          "id": "kanchaporn",
+          "kind": "person",
+          "label": "กัญชพร วิมลสันติ",
+          "sub": "เจ้าหน้าที่"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "color": "p2",
+                  "full": "วิเคราะห์งบการเงิน",
+                  "id": "y-1-1",
+                  "kind": "leaf",
+                  "label": "วิเคราะห์งบการเงิน",
+                  "leaves": [
+                    "Risk Score",
+                    "Ratio อัตราส่วนทางการเงิน",
+                    "Quick Method",
+                    "Total Performance Score",
+                    "งบทดลอง / งบทดลอง 4 แถว",
+                    "งบบริหาร"
+                  ],
+                  "num": "1.1"
+                },
+                {
+                  "color": "p2",
+                  "full": "ระบบ Smart Money ของสำนักงานหลักประกันสุขภาพแห่งชาติ",
+                  "id": "y-1-2",
+                  "kind": "leaf",
+                  "label": "Smart Money สปสช.",
+                  "leaves": [
+                    "โหลดข้อมูลเพื่อนำมาวิเคราะห์"
+                  ],
+                  "num": "1.2"
+                },
+                {
+                  "color": "p2",
+                  "full": "งานคุณภาพบัญชี",
+                  "id": "y-1-3",
+                  "kind": "leaf",
+                  "label": "งานคุณภาพบัญชี",
+                  "leaves": [
+                    "ตรวจสอบการบันทึกบัญชีของหน่วยบริการ ตามหลักเกณฑ์ของกองเศรษฐกิจสุขภาพและหลักประกันสุขภาพ",
+                    "ให้คำปรึกษากับหน่วยบริการ"
+                  ],
+                  "num": "1.3"
+                }
+              ],
+              "color": "p2",
+              "full": "ศึกษา วิเคราะห์ข้อมูลด้านการเงินการคลังของเขตสุขภาพเพื่อจัดทำนโยบายและยุทธศาสตร์ในการพัฒนาด้านการเงินการคลังของเขตสุขภาพให้สอดคล้องกับนโยบายของประเทศ",
+              "id": "y-m1",
+              "kind": "task",
+              "label": "นโยบาย/ยุทธศาสตร์การเงินการคลัง",
+              "num": "1"
+            },
+            {
+              "children": [
+                {
+                  "color": "p2",
+                  "full": "ตรวจงบประมาณโครงการ",
+                  "id": "y-2-1",
+                  "kind": "leaf",
+                  "label": "ตรวจงบประมาณโครงการ",
+                  "leaves": [
+                    "จัดสรร และแจ้งแหล่งเงิน",
+                    "ตรวจสอบโครงการ (การใช้งบประมาณ)"
+                  ],
+                  "num": "2.1"
+                },
+                {
+                  "color": "p2",
+                  "full": "ตรวจสอบข้อมูลการขึ้นระบบ HFA (Health Financial Analysis Center)",
+                  "id": "y-2-2",
+                  "kind": "leaf",
+                  "label": "ระบบ HFA",
+                  "leaves": [
+                    "ตรวจสอบข้อมูลนำเข้าในระบบ HFA ของหน่วยบริการในเขตสุขภาพที่ 1",
+                    "ประสานกองเศรษฐกิจสุขภาพและหลักประกันสุขภาพในการใช้งานระบบ",
+                    "แก้ปัญหา และประสานกับด้านการใช้งานระบบให้กับหน่วยบริการในเขตสุขภาพ",
+                    "กำกับ ติดตาม และวิเคราะห์รายงานจากระบบ HFA"
+                  ],
+                  "num": "2.2"
+                }
+              ],
+              "color": "p2",
+              "full": "งานอื่น ๆ ที่ได้รับมอบหมาย",
+              "id": "y-m2",
+              "kind": "task",
+              "label": "งานอื่นๆที่ได้รับมอบหมาย",
+              "num": "2"
+            }
+          ],
+          "color": "p2",
+          "full": "นางยุวธิดา ปัญญานะ — เจ้าหน้าที่ผู้รับผิดชอบ",
+          "id": "yuwathida",
+          "kind": "person",
+          "label": "ยุวธิดา ปัญญานะ",
+          "sub": "เจ้าหน้าที่"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "color": "p3",
+                  "full": "กองทุนหลักประกันสุขภาพแห่งชาติ (UC)",
+                  "id": "n-uc",
+                  "kind": "leaf",
+                  "label": "กองทุน UC",
+                  "leaves": [
+                    "การจัดทำอัตราค่าแรงของหน่วยบริการในเขตสุขภาพที่ 1",
+                    "การจัดสรรงบ OP IP PP (Basic Payment) sheet 0",
+                    "การจัดสรร Basic Payment ให้โรงพยาบาลส่งเสริมสุขภาพตำบลถ่ายโอน",
+                    "การจัดสรรเงิน PP non UC / PP workload",
+                    "การจัดสรรเงิน CF ระดับเขตฯ ตามนโยบาย (ฝากเงินไว้กับหน่วยบริการ)",
+                    "ตรวจสอบข้อมูลตามจ่าย OP Anywhere",
+                    "การจัดสรรงบ Hardship พื้นที่ทุรกันดารและสามจังหวัดชายแดนใต้",
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ",
+                    "การติดตาม และประสานข้อมูลจากการประชุมคณะกรรมการสุขภาพระดับพื้นที่แต่ละจังหวัด"
+                  ],
+                  "num": "(1)"
+                },
+                {
+                  "color": "p3",
+                  "full": "สิทธิสวัสดิการข้าราชการ (OFC/CSMBS)",
+                  "id": "n-ofc",
+                  "kind": "leaf",
+                  "label": "OFC/CSMBS",
+                  "leaves": [
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
+                  ],
+                  "num": "(2)"
+                },
+                {
+                  "color": "p3",
+                  "full": "กองทุนประกันสังคม (SSS)",
+                  "id": "n-sss",
+                  "kind": "leaf",
+                  "label": "SSS",
+                  "leaves": [
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
+                  ],
+                  "num": "(3)"
+                },
+                {
+                  "color": "p3",
+                  "full": "กองทุนประกันสุขภาพคนต่างด้าว (MHIS)",
+                  "id": "n-mhis",
+                  "kind": "leaf",
+                  "label": "MHIS",
+                  "leaves": [
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
+                  ],
+                  "num": "(4)"
+                },
+                {
+                  "color": "p3",
+                  "full": "กองทุนประกันสุขภาพบุคคลที่มีปัญหาสถานะและสิทธิ (STP)",
+                  "id": "n-stp",
+                  "kind": "leaf",
+                  "label": "STP",
+                  "leaves": [
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
+                  ],
+                  "num": "(5)"
+                },
+                {
+                  "color": "p3",
+                  "full": "กองทุนตามกฎหมายว่าด้วยการคุ้มครองผู้ประสบภัยจากรถ (กปภ./G-MOI)",
+                  "id": "n-gmoi",
+                  "kind": "leaf",
+                  "label": "กปภ./G-MOI",
+                  "leaves": [
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
+                  ],
+                  "num": "(6)"
+                },
+                {
+                  "color": "p3",
+                  "full": "กองทุนรักษาพยาบาลพนักงานองค์กรปกครองส่วนท้องถิ่นและครอบครัว (LGO)",
+                  "id": "n-lgo",
+                  "kind": "leaf",
+                  "label": "LGO",
+                  "leaves": [
+                    "กำกับ ติดตาม การเบิกจ่ายกองทุน (อัตราตามจ่าย)",
+                    "สรุปรายงาน พร้อมวิเคราะห์ สำหรับนำเข้าการประชุม ตรวจราชการ และเป็นข้อมูลให้หน่วยบริการ"
+                  ],
+                  "num": "(7)"
+                }
+              ],
+              "color": "p3",
+              "full": "อำนวยการ การประสาน และสนับสนุนการดำเนินงานของคณะกรรมการการเงินการคลังของเขตสุขภาพ — งานบริหารจัดการกองทุนทุกสิทธิ์",
+              "id": "n-m1",
+              "kind": "task",
+              "label": "อำนวยการ/ประสาน คกก.การเงินการคลัง",
+              "num": "1"
+            },
+            {
+              "children": [
+                {
+                  "color": "p3",
+                  "full": "ตรวจสอบบัญชีอัตราค่าบริการสาธารณสุขฯ ภายในเขตสุขภาพที่ 1",
+                  "id": "n-2-1",
+                  "kind": "leaf",
+                  "label": "ตรวจสอบบัญชีอัตราค่าบริการ",
+                  "leaves": [
+                    "กำกับ ติดตาม และตรวจสอบการจัดทำบัญชีอัตราค่าบริการที่ได้รับ และนำเสนอที่ประชุม CFO เขต",
+                    "เสนอผู้ตรวจราชการเพื่อพิจารณาอนุมัติบัญชีอัตราค่าบริการฯ",
+                    "ประสานกองบริหารการสาธารณสุข กรณีเป็นรายการนอกบัญชี",
+                    "ประสานหน่วยบริการที่ได้รับการอนุมัติเพื่อประกาศใช้",
+                    "รวบรวมเป็นฐานข้อมูลในระบบรายงานบัญชีอัตราค่าบริการ"
+                  ],
+                  "num": "2.1"
+                }
+              ],
+              "color": "p3",
+              "full": "งานบัญชีอัตราค่าบริการสาธารณสุข",
+              "id": "n-m2",
+              "kind": "task",
+              "label": "งานบัญชีอัตราค่าบริการ",
+              "num": "2"
+            }
+          ],
+          "color": "p3",
+          "full": "นางสาวณัฐธิดา พิงคยางกูล — เจ้าหน้าที่ผู้รับผิดชอบ",
+          "id": "nattida",
+          "kind": "person",
+          "label": "ณัฐธิดา พิงคยางกูล",
+          "sub": "เจ้าหน้าที่"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "color": "p4",
+                  "full": "แผนเงินบำรุงของโรงพยาบาลในเขตสุขภาพที่ 1",
+                  "id": "s-1-1",
+                  "kind": "leaf",
+                  "label": "แผนเงินบำรุง",
+                  "leaves": [
+                    "ประสานส่วนกลาง และหน่วยบริการ จัดทำแผน รอบครึ่งปีแรก",
+                    "ประสานส่วนกลาง และหน่วยบริการ จัดทำแผน รอบครึ่งปีหลัง"
+                  ],
+                  "num": "1.1"
+                },
+                {
+                  "color": "p4",
+                  "full": "การจัดทำแผนการเงิน (Planfin)",
+                  "id": "s-1-3",
+                  "kind": "leaf",
+                  "label": "Planfin",
+                  "leaves": [
+                    "จัดทำแผน Planfin เขตสุขภาพที่ 1 (รอบครึ่งแรก)",
+                    "จัดทำแผน Planfin เขตสุขภาพที่ 1 (รอบครึ่งหลัง)",
+                    "จัดทำแผน Planfin รายเดือน (103 แห่ง) พร้อมวิเคราะห์"
+                  ],
+                  "num": "1.3",
+                  "span": {
+                    "e": 11,
+                    "s": 0,
+                    "set": true
+                  }
+                }
+              ],
+              "color": "p4",
+              "full": "รวบรวมข้อมูลด้านการบริหารจัดการ การเงินการคลังกองทุนต่างๆ ของหน่วยงานที่เกี่ยวข้องในเขตสุขภาพ",
+              "id": "s-m1",
+              "kind": "task",
+              "label": "ข้อมูลแผนการเงินของหน่วยบริการ",
+              "num": "1"
+            },
+            {
+              "children": [
+                {
+                  "color": "p4",
+                  "full": "งานธุรการ",
+                  "id": "s-2-1",
+                  "kind": "leaf",
+                  "label": "งานธุรการ",
+                  "leaves": [
+                    "รับ-ส่ง หนังสือธุรการ งานแผนงบประมาณด้านสาธารณสุข",
+                    "ทำขออนุมัติไปราชการ รองผู้อำนวยการสำนักงานเขตสุขภาพที่ 1 (กรณีงานที่เกี่ยวข้อง)"
+                  ],
+                  "num": "2.1"
+                },
+                {
+                  "color": "p4",
+                  "full": "งานด้านสินทรัพย์เขตสุขภาพที่ 1",
+                  "id": "s-2-2",
+                  "kind": "leaf",
+                  "label": "งานสินทรัพย์ (GFMIS)",
+                  "leaves": [
+                    "กำกับ ติดตาม การแก้ปัญหาสินทรัพย์ระหว่างทะเบียนสินทรัพย์และระบบ GFMIS",
+                    "รายงานผลการแก้ปัญหาสินทรัพย์ต่อผู้บริหารและการประชุมที่เกี่ยวข้อง"
+                  ],
+                  "num": "2.2"
+                }
+              ],
+              "color": "p4",
+              "full": "งานอื่น ๆ ที่ได้รับมอบหมาย",
+              "id": "s-m2",
+              "kind": "task",
+              "label": "งานอื่นๆที่ได้รับมอบหมาย",
+              "num": "2"
+            }
+          ],
+          "color": "p4",
+          "full": "นางสาวศรินทิพย์ ตุ้ยตามพันธ์ — เจ้าหน้าที่ผู้รับผิดชอบ",
+          "id": "sarintip",
+          "kind": "person",
+          "label": "ศรินทิพย์ ตุ้ยตามพันธ์",
+          "sub": "เจ้าหน้าที่"
+        }
+      ],
+      "color": "head",
+      "full": "นายพิทักษ์ นันธิ — ตำแหน่งนักวิชาการเงินและบัญชีปฏิบัติการ, หัวหน้ากลุ่มงานบริหารการเงินและการคลัง",
+      "id": "head1",
+      "kind": "head",
+      "label": "พิทักษ์ นันธิ",
+      "sub": "หัวหน้ากลุ่มงาน"
+    }
+  ],
+  "color": "trunk",
+  "full": "กลุ่มงานบริหารการเงินและการคลัง สำนักงานเขตสุขภาพที่ 1",
+  "id": "root",
+  "kind": "root",
+  "label": "กลุ่มงาน\nบริหารการเงินการคลัง"
+};
+
+const COLOR_VARS = { trunk:'--c-trunk', head:'--c-head', head2:'--c-head2', rust:'--c-rust', p1:'--c-p1', p2:'--c-p2', p3:'--c-p3', p4:'--c-p4' };
+const BOX = { root:[220,66], head:[192,64], 'placeholder-head':[160,58], person:[180,66], task:[168,60], leaf:[156,56] };
+const UNIT = 285, ROW_H = 108, PAD = 30;
+const COMB_INSET = 10, COMB_W = 200;
+
+const APP = { tree:null, canEdit:false, docRef:null, selectedId:null, editing:false };
+
+function cloneDefault(){ return JSON.parse(JSON.stringify(DEFAULT_TREE)); }
+
+function computeWidths(node){
+  if(!node.children || !node.children.length){ node._w = 1; return 1; }
+  node._w = node.children.reduce((a,c)=>a+computeWidths(c),0) || 1;
+  return node._w;
+}
+function assignX(node, xStart){
+  node._cx = xStart + node._w/2;
+  if(node.children && node.children.length){
+    let cur = xStart;
+    node.children.forEach(c=>{ assignX(c, cur); cur += c._w; });
+  }
+}
+function assignDepth(node, d){ node._depth = d; if(node.children) node.children.forEach(c=>assignDepth(c, d+1)); }
+function flatten(node, acc){ acc.push(node); if(node.children) node.children.forEach(c=>flatten(c,acc)); return acc; }
+function findWithParent(node, id, parent){
+  if(node.id===id) return {node, parent};
+  if(node.children){ for(const c of node.children){ const r = findWithParent(c,id,node); if(r) return r; } }
+  return null;
+}
+function genId(prefix){ return prefix+'_'+Math.random().toString(36).slice(2,9); }
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+let ALL = [];
+
+function layout(){
+  computeWidths(APP.tree);
+  assignX(APP.tree, 0);
+  assignDepth(APP.tree, 0);
+  ALL = flatten(APP.tree, []);
+  ALL.forEach(n=>{
+    const box = BOX[n.kind] || BOX.leaf;
+    const [w,h] = box;
+    n._boxW = w; n._boxH = h;
+    n._px = PAD + n._cx * UNIT;
+    n._rowTop = PAD + n._depth * ROW_H;
+    n._boxTop = n._rowTop + (ROW_H - h)/2;
+    n._boxBottom = n._boxTop + h;
+    n._left = n._px - w/2;
+  });
+}
+
+function render(){
+  layout();
+  const totalWidthUnits = APP.tree._w;
+  const maxDepth = Math.max(...ALL.map(n=>n._depth));
+  const canvasW = PAD*2 + totalWidthUnits*UNIT;
+  const canvasH = PAD*2 + (maxDepth+1)*ROW_H;
+  const canvas = document.getElementById('canvas');
+  canvas.style.width = canvasW+'px';
+  canvas.style.height = canvasH+'px';
+
+  let svgParts = [];
+  ALL.forEach(n=>{
+    if(!n.children || !n.children.length) return;
+    const colorVar = `var(${COLOR_VARS[n.children[0].color] || '--c-trunk'})`;
+    const busY = n._boxBottom + (ROW_H - n._boxH)/2 - 2;
+    const xs = n.children.map(c=>c._px);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    svgParts.push(`<path d="M ${n._px} ${n._boxBottom} L ${n._px} ${busY}" stroke="${colorVar}" stroke-width="1.6" fill="none"/>`);
+    if(n.children.length>1) svgParts.push(`<path d="M ${minX} ${busY} L ${maxX} ${busY}" stroke="${colorVar}" stroke-width="1.6" fill="none"/>`);
+    n.children.forEach(c=>{
+      svgParts.push(`<path d="M ${c._px} ${busY} L ${c._px} ${c._boxTop}" stroke="${colorVar}" stroke-width="1.6" fill="none"/>`);
+    });
+  });
+  const svgHtml = `<svg class="lines" width="${canvasW}" height="${canvasH}">${svgParts.join('')}</svg>`;
+
+  let nodeHtml = '';
+  ALL.forEach(n=>{
+    const colorVar = `var(${COLOR_VARS[n.color]||'--c-trunk'})`;
+    const numHtml = n.num ? `<span class="num">${esc(n.num)}</span>` : '';
+    const subHtml = n.sub ? `<span class="sub">${esc(n.sub)}</span>` : '';
+    const label = esc(n.label).replace(/\n/g,'<br>');
+    const sel = n.id===APP.selectedId ? 'true' : 'false';
+    nodeHtml += `<div class="node kind-${n.kind}" style="left:${n._left}px;top:${n._boxTop}px;width:${n._boxW}px;height:${n._boxH}px;--node-color:${colorVar};"
+      data-id="${n.id}" data-selected="${sel}" tabindex="0" role="button" aria-label="${esc(n.label).replace(/\n/g,' ')}">${numHtml}<span class="lbl">${label}</span>${subHtml}</div>`;
+  });
+
+  // ก้านยาวใต้กล่อง + กิ่งรายการปฏิบัติทีละข้อ
+  let combHtml = '';
+  ALL.forEach(n=>{
+    if(!n.leaves || !n.leaves.length) return;
+    const colorVar = `var(${COLOR_VARS[n.color]||'--c-trunk'})`;
+    combHtml += `<div class="comb" style="left:${n._left + COMB_INSET}px;top:${n._boxBottom}px;width:${COMB_W}px;--node-color:${colorVar};">`
+      + n.leaves.map(l=>`<div class="comb-item">${esc(l)}</div>`).join('')
+      + `</div>`;
+  });
+
+  canvas.innerHTML = svgHtml + nodeHtml + combHtml;
+
+  // ก้านยาวเท่าไรรู้ได้หลังเบราว์เซอร์จัดข้อความเสร็จ จึงค่อยขยายความสูงผืนผ้าใบ
+  let maxBottom = canvasH;
+  canvas.querySelectorAll('.comb').forEach(el=>{
+    const b = el.offsetTop + el.offsetHeight;
+    if(b > maxBottom) maxBottom = b;
+  });
+  canvas.style.height = (maxBottom + PAD) + 'px';
+
+  // stats
+  let totalPeople=0, totalTasks=0, totalLeafItems=0;
+  ALL.forEach(n=>{
+    if(n.kind==='head'||n.kind==='placeholder-head'||n.kind==='person') totalPeople++;
+    if(n.kind==='task') totalTasks++;
+    if(n.leaves) totalLeafItems += n.leaves.length;
+  });
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="n">${totalPeople}</div><div class="l">ผู้รับผิดชอบ (หัวหน้า+จนท.)</div></div>
+    <div class="stat"><div class="n">${totalTasks}</div><div class="l">งานหลักทั้งหมด</div></div>
+    <div class="stat"><div class="n">${totalLeafItems}</div><div class="l">รายการปฏิบัติย่อยทั้งหมด</div></div>
+  `;
+
+  // legend — derived live from the tree
+  const legendNodes = [];
+  APP.tree.children.forEach(h=>{
+    legendNodes.push(h);
+    (h.children||[]).forEach(c=>{ if(c.kind==='person') legendNodes.push(c); });
+  });
+  document.getElementById('legend').innerHTML = legendNodes.map(n=>
+    `<span class="sw"><span class="dot" style="background:var(${COLOR_VARS[n.color]})"></span>${esc(n.label)}</span>`
+  ).join('');
+
+  if(!APP.selectedId) APP.selectedId = 'k-1-1';
+  renderPanel();
+}
+
+function renderPanel(){
+  const n = findWithParent(APP.tree, APP.selectedId, null);
+  if(!n){ return; }
+  const {node, parent} = n;
+  const colorVar = `var(${COLOR_VARS[node.color]||'--c-trunk'})`;
+  const kindLabelMap = {root:'กลุ่มงาน',head:'หัวหน้ากลุ่มงาน','placeholder-head':'หัวหน้า (รอข้อมูล)',person:'เจ้าหน้าที่',task:'งานหลัก',leaf:'งานย่อย'};
+  const panel = document.getElementById('panel');
+  panel.style.setProperty('--panel-color', colorVar);
+
+  const ganttBtn = `<button class="pbtn" id="btnGantt">📅 ไทม์ไลน์ปีงบประมาณ</button>`;
+  const editBtns = APP.canEdit ? `
+    <div class="edit-actions">
+      ${ganttBtn}
+      <button class="pbtn" id="btnEdit">${APP.editing? 'ยกเลิก':'✏ แก้ไขข้อความ'}</button>
+      ${(node.kind==='head'||node.kind==='person'||node.kind==='placeholder-head') ? '<button class="pbtn" id="btnAddTask">+ เพิ่มงานหลัก</button>' : ''}
+      ${node.kind==='task' ? '<button class="pbtn" id="btnAddLeaf">+ เพิ่มงานย่อย</button>' : ''}
+      ${(node.kind==='task'||node.kind==='leaf') ? '<button class="pbtn danger" id="btnDelete">ลบ'+(node.kind==='task'?'งานหลักนี้ (รวมงานย่อย)':'งานย่อยนี้')+'</button>' : ''}
+    </div>
+    <div class="toast" id="toast"></div>
+  ` : `<div class="edit-actions">${ganttBtn}</div>`;
+
+  if(APP.editing){
+    const leavesText = (node.leaves||[]).join('\n');
+    panel.innerHTML = `
+      <div class="panel-eyebrow"><span>${kindLabelMap[node.kind]||''}${node.num? ' · ข้อ '+esc(node.num):''}</span></div>
+      <div class="efield"><label>ชื่อกล่อง (สั้น)</label><input type="text" id="fLabel" value="${esc((node.label||'').replace(/\n/g,' '))}"></div>
+      ${node.sub!==undefined ? `<div class="efield"><label>ตำแหน่ง/บทบาท</label><input type="text" id="fSub" value="${esc(node.sub||'')}"></div>` : ''}
+      <div class="efield"><label>รายละเอียดเต็ม</label><textarea id="fFull" style="min-height:60px;">${esc(node.full||'')}</textarea></div>
+      ${node.kind==='leaf' ? `<div class="efield"><label>รายการปฏิบัติ (บรรทัดละ 1 รายการ)</label><textarea id="fLeaves">${esc(leavesText)}</textarea></div>` : ''}
+      <div class="edit-actions">
+        <button class="pbtn primary" id="btnSave">บันทึก</button>
+        <button class="pbtn" id="btnCancel">ยกเลิก</button>
+      </div>
+      <div class="toast" id="toast"></div>
+    `;
+    document.getElementById('btnSave').onclick = ()=>{
+      node.label = document.getElementById('fLabel').value.trim() || node.label;
+      if(node.sub!==undefined) node.sub = document.getElementById('fSub').value.trim();
+      node.full = document.getElementById('fFull').value.trim();
+      if(node.kind==='leaf'){
+        const oldLeaves = node.leaves || [];
+        const oldSpans = ensureSpans(node).slice();
+        const next = document.getElementById('fLeaves').value.split('\n').map(s=>s.trim()).filter(Boolean);
+        // ช่วงเวลาติดไปกับข้อความเดิม ถ้าข้อความไม่เปลี่ยนก็ยังอยู่ที่เดิม
+        const taken = {};
+        node.spans = next.map(t=>{
+          const k = oldLeaves.findIndex((o,i)=> o===t && !taken[i]);
+          if(k === -1) return null;
+          taken[k] = true;
+          return oldSpans[k] || null;
+        });
+        node.leaves = next;
+      }
+      if(node.kind==='placeholder-head' && node.label && node.label!=='ระบุชื่อ'){
+        node.kind = 'head';
+        node.color = 'head2';
+        if(!node.children) node.children = [];
+      }
+      APP.editing = false;
+      persist();
+      render();
+    };
+    document.getElementById('btnCancel').onclick = ()=>{ APP.editing=false; renderPanel(); };
+    return;
+  }
+
+  let body;
+  if(node.leaves && node.leaves.length){
+    body = `<ul class="panel-leaves">${node.leaves.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>`;
+  } else if(node.kind==='placeholder-head'){
+    body = `<p style="color:var(--c-rust);font-size:13.5px;">${esc(node.full)}</p>`;
+  } else {
+    body = `<p style="font-size:13px;color:var(--ink-soft);">คลิกกล่องสีเข้มในกิ่งด้านล่างเพื่อดูรายการปฏิบัติ</p>`;
+  }
+
+  panel.innerHTML = `
+    <div class="panel-eyebrow"><span>${kindLabelMap[node.kind]||''}${node.num? ' · ข้อ '+esc(node.num):''}</span></div>
+    <h3 class="panel-title">${esc(node.label).replace(/\n/g,' ')}</h3>
+    <p class="panel-full">${esc(node.full)}</p>
+    ${body}
+    ${editBtns}
+  `;
+
+  const gBtn = document.getElementById('btnGantt');
+  if(gBtn) gBtn.onclick = ()=>openGantt(node.id);
+
+  if(APP.canEdit){
+    document.getElementById('btnEdit').onclick = ()=>{ APP.editing = true; renderPanel(); };
+    const addTaskBtn = document.getElementById('btnAddTask');
+    if(addTaskBtn) addTaskBtn.onclick = ()=>{
+      const label = prompt('ชื่องานหลักใหม่:');
+      if(!label) return;
+      const nn = { id:genId('t'), kind:'task', num:String((node.children||[]).length+1), label:label.trim(), color:node.color, full:label.trim(), children:[] };
+      if(!node.children) node.children = [];
+      node.children.push(nn);
+      APP.selectedId = nn.id;
+      persist(); render();
+    };
+    const addLeafBtn = document.getElementById('btnAddLeaf');
+    if(addLeafBtn) addLeafBtn.onclick = ()=>{
+      const label = prompt('ชื่องานย่อยใหม่:');
+      if(!label) return;
+      const nn = { id:genId('l'), kind:'leaf', num:String((node.children||[]).length+1), label:label.trim(), color:node.color, full:label.trim(), leaves:[] };
+      if(!node.children) node.children = [];
+      node.children.push(nn);
+      APP.selectedId = nn.id;
+      persist(); render();
+    };
+    const delBtn = document.getElementById('btnDelete');
+    if(delBtn) delBtn.onclick = ()=>{
+      if(!parent) return;
+      if(!confirm('ยืนยันลบ "'+node.label.replace(/\n/g,' ')+'" ?')) return;
+      parent.children = parent.children.filter(c=>c.id!==node.id);
+      APP.selectedId = parent.id;
+      persist(); render();
+    };
+  }
+}
+
+/* ---------- Gantt: ไทม์ไลน์ตามปีงบประมาณ ---------- */
+const FY_LABEL = 'ปีงบประมาณ 2570';
+const FY_RANGE = 'ต.ค. 2569 – ก.ย. 2570';
+const MONTHS = ['ต.ค.','พ.ย.','ธ.ค.','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.'];
+const CURRENT_M = 0; // ต.ค. = เดือนแรกของปีงบ
+
+/* ช่วงเวลาเก็บเป็นราย "ข้อ" ในกล่อง (node.spans[i]) ไม่ใช่รายกล่อง */
+function getItemSpan(node, i){
+  const sp = (node.spans||[])[i];
+  if(sp && typeof sp.s==='number' && typeof sp.e==='number') return {s:sp.s, e:sp.e, set:!!sp.set};
+  const legacy = node.span; // ข้อมูลรุ่นก่อนที่เก็บเป็นรายกล่อง
+  if(legacy && typeof legacy.s==='number') return {s:legacy.s, e:legacy.e, set:!!legacy.set};
+  return {s:0, e:11, set:false};
+}
+function ensureSpans(node){
+  const n = (node.leaves||[]).length;
+  if(!Array.isArray(node.spans)) node.spans = [];
+  while(node.spans.length < n) node.spans.push(null);
+  if(node.span){ // ย้ายข้อมูลรุ่นก่อน (รายกล่อง) มาเป็นรายข้อ แล้วเลิกใช้ของเดิม
+    const lg = node.span;
+    for(let i=0;i<n;i++) if(!node.spans[i]) node.spans[i] = {s:lg.s, e:lg.e, set:!!lg.set};
+    delete node.span;
+  }
+  return node.spans;
+}
+function setItemSpan(node, i, s, e){
+  ensureSpans(node)[i] = {s, e, set:true};
+}
+function clearItemSpan(node, i){
+  ensureSpans(node)[i] = null;
+}
+function leafDescendants(node, out){
+  out = out || [];
+  if(node.kind==='leaf'){ out.push(node); return out; }
+  (node.children||[]).forEach(c=>leafDescendants(c, out));
+  return out;
+}
+function ganttGroups(scope){
+  return leafDescendants(scope)
+    .map(n=>({ node:n, items:(n.leaves||[]).map((t,i)=>({ i, text:t, span:getItemSpan(n,i) })) }))
+    .filter(g=>g.items.length);
+}
+
+function openGantt(nodeId){
+  const found = findWithParent(APP.tree, nodeId, null);
+  if(!found) return;
+  renderGantt(found.node);
+  const dlg = document.getElementById('ganttDlg');
+  if(!dlg.open) dlg.showModal();
+}
+
+function renderGantt(scope){
+  const dlg = document.getElementById('ganttDlg');
+  const colorVar = `var(${COLOR_VARS[scope.color]||'--c-trunk'})`;
+  const groups = ganttGroups(scope);
+  const allItems = groups.reduce((a,g)=>a.concat(g.items),[]);
+  const unsetCount = allItems.filter(it=>!it.span.set).length;
+  const todayLeft = ((CURRENT_M + 0.5)/12)*100;
+  const opts = (sel)=>MONTHS.map((m,i)=>`<option value="${i}" ${i===sel?'selected':''}>${m}</option>`).join('');
+
+  const monthHead = `
+    <div class="g-row g-months">
+      <div class="g-label" style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ink-soft);">งาน / รายการปฏิบัติ</div>
+      <div>
+        <div class="g-qhead"><span>ไตรมาส 1</span><span>ไตรมาส 2</span><span>ไตรมาส 3</span><span>ไตรมาส 4</span></div>
+        <div class="g-mhead">${MONTHS.map((m,i)=>`<span class="${i%3===0?'q':''}">${m}</span>`).join('')}</div>
+      </div>
+      <div></div>
+    </div>`;
+
+  let rowsHtml = '';
+  if(!groups.length){
+    rowsHtml = `<div class="g-empty">กิ่งนี้ยังไม่มีรายการปฏิบัติ — เพิ่มได้ในแผงรายละเอียดด้านล่าง</div>`;
+  } else {
+    groups.forEach(g=>{
+      const setSpans = g.items.filter(it=>it.span.set).map(it=>it.span);
+      let rollup = '';
+      if(setSpans.length){
+        const s = Math.min(...setSpans.map(x=>x.s)), e = Math.max(...setSpans.map(x=>x.e));
+        rollup = `<div class="g-rollup" style="left:${(s/12)*100}%;width:${((e-s+1)/12)*100}%;"></div>`;
+      }
+      const numHtml = g.node.num ? `<span class="g-num">${esc(g.node.num)}</span>` : '';
+      rowsHtml += `
+        <div class="g-row g-group">
+          <div class="g-label">${numHtml}${esc(g.node.label).replace(/\n/g,' ')}</div>
+          <div class="g-track">${rollup}<div class="g-today" style="left:${todayLeft}%;"></div></div>
+          <div></div>
+        </div>`;
+      g.items.forEach(it=>{
+        const sp = it.span;
+        const left = (sp.s/12)*100, width = ((sp.e - sp.s + 1)/12)*100;
+        const barText = sp.set ? `${MONTHS[sp.s]}–${MONTHS[sp.e]}` : 'ยังไม่กำหนด';
+        rowsHtml += `
+          <div class="g-row g-item">
+            <div class="g-label">${esc(it.text)}</div>
+            <div class="g-track">
+              <div class="g-bar ${sp.set?'':'unset'}" style="left:${left}%;width:${width}%;">${barText}</div>
+              <div class="g-today" style="left:${todayLeft}%;" title="เดือนปัจจุบัน"></div>
+            </div>
+            <div class="g-ctl">${APP.canEdit? `
+              <select data-gid="${g.node.id}" data-gi="${it.i}" data-which="s" aria-label="เดือนเริ่ม">${opts(sp.s)}</select>
+              <select data-gid="${g.node.id}" data-gi="${it.i}" data-which="e" aria-label="เดือนสิ้นสุด">${opts(sp.e)}</select>
+              ${sp.set?`<button data-gclear="${g.node.id}" data-gi="${it.i}" title="ล้างช่วงเวลา">✕</button>`:''}
+            `:''}</div>
+          </div>`;
+      });
+    });
+  }
+
+  dlg.style.setProperty('--g-color', colorVar);
+  dlg.style.setProperty('--ctl-w', APP.canEdit ? '150px' : '0px');
+  dlg.innerHTML = `
+    <div class="g-head">
+      <div>
+        <div class="g-fy">${FY_LABEL} · ${FY_RANGE}</div>
+        <h3>${esc(scope.label).replace(/\n/g,' ')}</h3>
+        <div class="g-note">${allItems.length} รายการปฏิบัติ${unsetCount? ` · ยังไม่กำหนดช่วงเวลา ${unsetCount} รายการ (แถบเส้นประ) — เอกสารคำสั่งมอบหมายงานไม่ได้ระบุไว้${APP.canEdit?' เลือกเดือนเริ่ม–สิ้นสุดทางขวาของแต่ละแถบ บันทึกอัตโนมัติ':''}` : ' · กำหนดช่วงเวลาครบแล้ว'}</div>
+      </div>
+      <button class="g-close" id="gClose" aria-label="ปิด">✕</button>
+    </div>
+    <div class="g-body">
+      <div class="g-grid">
+        ${monthHead}
+        ${rowsHtml}
+      </div>
+      <div class="g-foot">แถบจางหนาเล็กใต้ชื่อกล่อง = ช่วงรวมของทุกรายการในกล่องนั้น · เส้นแดงแนวตั้ง = เดือนปัจจุบัน (${MONTHS[CURRENT_M]}) · ปีงบประมาณไทยเริ่ม ต.ค. สิ้นสุด ก.ย.</div>
+    </div>`;
+
+  dlg.querySelector('#gClose').onclick = ()=>dlg.close();
+  dlg.querySelectorAll('select[data-gid]').forEach(sel=>{
+    sel.onchange = ()=>{
+      const f = findWithParent(APP.tree, sel.dataset.gid, null);
+      if(!f) return;
+      const i = +sel.dataset.gi;
+      const cur = getItemSpan(f.node, i);
+      let s = cur.s, e = cur.e;
+      if(sel.dataset.which==='s') s = +sel.value; else e = +sel.value;
+      if(e < s){ if(sel.dataset.which==='s') e = s; else s = e; }
+      setItemSpan(f.node, i, s, e);
+      persist();
+      renderGantt(scope);
+    };
+  });
+  dlg.querySelectorAll('button[data-gclear]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const f = findWithParent(APP.tree, btn.dataset.gclear, null);
+      if(!f) return;
+      clearItemSpan(f.node, +btn.dataset.gi);
+      persist();
+      renderGantt(scope);
+    };
+  });
+}
+
+function showToast(msg, ok){
+  const t = document.getElementById('toast');
+  if(!t) return;
+  t.textContent = msg;
+  t.className = 'toast ' + (ok? 'ok':'err');
+}
+
+async function persist(){
+  if(!APP.docRef) return;
+  try{
+    const clean = JSON.parse(JSON.stringify(APP.tree, (k,v)=> k.startsWith('_') ? undefined : v));
+    await APP.docRef.set(clean);
+    showToast('บันทึกแล้ว ✓', true);
+  }catch(e){
+    showToast('บันทึกไม่สำเร็จ: '+(e&&e.message||'unknown'), false);
+  }
+}
+
+canvasClickSetup();
+function canvasClickSetup(){
+  document.getElementById('canvas').addEventListener('click', (e)=>{
+    const el = e.target.closest('.node');
+    if(!el) return;
+    APP.editing = false;
+    APP.selectedId = el.dataset.id;
+    render();
+    openGantt(el.dataset.id);
+  });
+  document.getElementById('canvas').addEventListener('keydown', (e)=>{
+    if(e.key==='Enter' || e.key===' '){
+      const el = e.target.closest('.node');
+      if(el){ e.preventDefault(); APP.editing=false; APP.selectedId = el.dataset.id; render(); openGantt(el.dataset.id); }
+    }
+  });
+  // คลิกพื้นหลังนอกกล่องเนื้อหา = ปิดป๊อปอัป
+  const dlg = document.getElementById('ganttDlg');
+  dlg.addEventListener('click', (e)=>{ if(e.target===dlg) dlg.close(); });
+}
+
+async function init(){
+  let canEdit = false, dbNs = null, docRef = null, liveTree = null;
+  try{
+    const user = await claude.use('user');
+    if(user) canEdit = await user.canEdit();
+  }catch(e){}
+  try{ dbNs = await claude.use('db'); }catch(e){}
+  if(dbNs){
+    try{
+      docRef = dbNs.doc('config/tree');
+      const snap = await docRef.get();
+      // snapshots are frozen — clone before the layout engine writes coordinates onto nodes
+      if(snap.exists) liveTree = JSON.parse(JSON.stringify(snap.data()));
+    }catch(e){}
+  }
+  APP.tree = liveTree || cloneDefault();
+  APP.canEdit = canEdit;
+  APP.docRef = docRef;
+  document.getElementById('editBadge').hidden = !canEdit;
+  document.getElementById('loadState').textContent = liveTree ? 'โหลดข้อมูลที่บันทึกไว้แล้ว' : 'ข้อมูล ณ 1 ต.ค. 2569';
+  render();
+}
+
+APP.tree = cloneDefault();
+render();
+document.getElementById('loadState').textContent = 'กำลังโหลด…';
+init();
+</script>
