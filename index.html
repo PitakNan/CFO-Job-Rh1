@@ -324,13 +324,38 @@
   }
   .g-ctl button:hover{color:var(--bad);background:var(--field-bg);}
   .g-empty{font-size:12.5px;color:var(--ink-soft);padding:12px 0;}
+  .g-lock{opacity:.55;}
+  .toast-fix{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:99;
+    padding:9px 16px;border-radius:999px;font-size:12.5px;font-weight:600;
+    box-shadow:0 6px 22px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .18s;}
+  .toast-fix.show{opacity:1;}
+  .toast-fix.ok{background:#15803d;color:#fff;}
+  .toast-fix.err{background:#b91c1c;color:#fff;}
+  .auth-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .auth-btn{font-family:inherit;font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;
+    border:1px solid var(--tick);background:var(--field-bg);color:var(--ink);cursor:pointer;}
+  .auth-btn:hover{border-color:var(--c-head);}
+  #loginDlg{border:none;border-radius:16px;padding:0;max-width:92vw;width:360px;
+    background:var(--card-bg,#fff);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  #loginDlg::backdrop{background:rgba(15,23,42,.45);}
+  .lg-body{padding:22px 22px 18px;}
+  .lg-body h3{margin:0 0 6px;font-size:16px;}
+  .lg-body p{margin:0 0 14px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
+  .lg-body input{width:100%;box-sizing:border-box;padding:10px 12px;font-size:16px;letter-spacing:.14em;
+    text-align:center;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--tick);border-radius:9px;background:var(--field-bg);color:var(--ink);}
+  .lg-err{color:#b91c1c;font-size:12px;margin-top:9px;min-height:16px;}
+  .lg-act{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;}
   .g-foot{font-size:11px;color:var(--ink-soft);margin-top:14px;padding-top:10px;border-top:1px dashed var(--tick);line-height:1.6;}
 </style>
 
 <div class="wrap">
   <div class="head-row">
     <p class="eyebrow disp">กลุ่มงานบริหารการเงินและการคลัง · สนง.เขตสุขภาพที่ 1</p>
-    <span class="badge-edit" id="editBadge" hidden>✏ โหมดแก้ไข: คุณแก้ไขข้อมูลนี้ได้</span>
+    <span class="auth-row">
+      <span class="badge-edit" id="editBadge" hidden></span>
+      <button class="auth-btn" id="btnAuth">🔑 เข้าสู่ระบบเพื่อแก้ไขช่วงเวลา</button>
+    </span>
   </div>
   <h1 class="title">แผนผังโครงสร้างงาน (Org Chart)</h1>
   <p class="subtitle">แตกจากคำสั่งมอบหมายงาน (ร่าง) อัปเดต 23 ก.ย. 2569 — ก้านใต้กล่องงานย่อยแตกกิ่งเป็นรายการปฏิบัติทีละข้อ คลิกกล่องใดก็ได้เพื่อดูรายละเอียดและไทม์ไลน์ปีงบประมาณ</p>
@@ -349,11 +374,22 @@
   <div class="panel" id="panel"></div>
 
   <dialog id="ganttDlg"></dialog>
+  <dialog id="loginDlg"><form method="dialog" class="lg-body" id="lgForm">
+    <h3>เข้าสู่ระบบ</h3>
+    <p>ใส่รหัสประจำตัวที่หัวหน้ากลุ่มงานออกให้ เพื่อแก้ช่วงเวลาของงานตัวเอง — หัวหน้ากลุ่มงานแก้ได้ทุกงาน</p>
+    <input id="lgCode" autocomplete="one-time-code" placeholder="XXXX-XXXX" maxlength="9" inputmode="text">
+    <div class="lg-err" id="lgErr"></div>
+    <div class="lg-act">
+      <button type="button" class="auth-btn" id="lgCancel">ยกเลิก</button>
+      <button type="button" class="auth-btn" id="lgOk" style="background:var(--c-head);color:#fff;border-color:transparent;">เข้าสู่ระบบ</button>
+    </div>
+  </form></dialog>
+  <div class="toast-fix" id="toastFix"></div>
 
   <footer class="note">
     ที่มา: CFO-(ร่าง) คำสั่งมอบหมายงานเจ้าหน้าที่ สนง.เขต Update 23 ก.ย. 2569 (ภาคผนวก 2)<br>
     กิ่ง "นโยบาย/ยุทธศาสตร์ และงานร่วมทั้งทีม" ใต้พิทักษ์ นันธิ รวมงานข้อ 1 และข้อ 2 ไว้ด้วยกัน — ข้อ 2 เป็นรายการที่เอกสารต้นฉบับระบุผู้รับผิดชอบร่วมกันทั้ง 5 คน<br>
-    <b>หมายเหตุ:</b> หน้านี้เป็นสำเนาแบบอ่านอย่างเดียว ข้อมูล ณ 1 ต.ค. 2569 — ฉบับที่แก้ไขข้อมูลได้อยู่ในระบบ Claude Artifact
+    <b>หมายเหตุ:</b> โครงสร้างงานและข้อความเป็นสำเนาแบบอ่านอย่างเดียว — ส่วน <b>ช่วงเวลาในไทม์ไลน์</b> ผู้รับผิดชอบเข้าสู่ระบบด้วยรหัสประจำตัวแล้วแก้ได้เอง บันทึกทันที
   </footer>
 </div>
 
@@ -1661,7 +1697,12 @@ const BOX = { root:[220,66], head:[192,64], 'placeholder-head':[160,58], person:
 const UNIT = 285, ROW_H = 108, PAD = 30;
 const COMB_INSET = 10, COMB_W = 200;
 
-const APP = { tree:null, canEdit:false, docRef:null, selectedId:null, editing:false };
+const API = 'https://cfo-job-rh1.pitaknan.workers.dev';
+// กล่องงานย่อยใดเป็นของใคร — ชุดเดียวกับฝั่ง Worker (worker/src/owners.js)
+const NODE_OWNER = {"h-1-1": "head1", "h-1-2": "head1", "h-2-1": "head1", "h-2-2": "head1", "h-2-3": "head1", "h-2-4": "head1", "k-1-1": "kanchaporn", "k-2-1": "kanchaporn", "k-3-1": "kanchaporn", "y-1-1": "yuwathida", "y-1-2": "yuwathida", "y-1-3": "yuwathida", "y-2-1": "yuwathida", "y-2-2": "yuwathida", "n-uc": "nattida", "n-ofc": "nattida", "n-sss": "nattida", "n-mhis": "nattida", "n-stp": "nattida", "n-gmoi": "nattida", "n-lgo": "nattida", "n-2-1": "nattida", "s-1-1": "sarintip", "s-1-3": "sarintip", "s-2-1": "sarintip", "s-2-2": "sarintip"};
+const APP = { tree:null, canEdit:false, docRef:null, selectedId:null, editing:false,
+              user:null, token:null, baseSpans:{}, saving:false };
+function canEditNode(id){ return !!(APP.user && (APP.user.admin || NODE_OWNER[id] === APP.user.uid)); }
 
 function cloneDefault(){ return JSON.parse(JSON.stringify(DEFAULT_TREE)); }
 
@@ -1912,7 +1953,12 @@ function renderPanel(){
 const FY_LABEL = 'ปีงบประมาณ 2570';
 const FY_RANGE = 'ต.ค. 2569 – ก.ย. 2570';
 const MONTHS = ['ต.ค.','พ.ย.','ธ.ค.','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.'];
-const CURRENT_M = 0; // ต.ค. = เดือนแรกของปีงบ
+// เส้นเดือนปัจจุบัน — คิดจากวันจริง แสดงเฉพาะเมื่ออยู่ในปีงบ 2570 (ต.ค.2569–ก.ย.2570)
+const CURRENT_M = (function(){
+  const n = new Date();
+  if(n < new Date(2026,9,1) || n >= new Date(2027,9,1)) return -1;
+  return (n.getMonth() + 3) % 12;
+})();
 
 /* ช่วงเวลาเก็บรายข้อ และ 1 ข้อมีได้หลายช่วง (เช่น ตรวจราชการ 2 รอบ)
    รูปแบบ: node.spans[i] = { segs:[[เริ่ม,สิ้นสุด],...], draft:true|false }  ·  null = ยังไม่กำหนด */
@@ -2004,6 +2050,7 @@ function renderGantt(scope){
   const allItems = groups.reduce((a,g)=>a.concat(g.items),[]);
   const unsetCount = allItems.filter(it=>!it.span.set).length;
   const todayLeft = ((CURRENT_M + 0.5)/12)*100;
+  const todayHtml = CURRENT_M < 0 ? '' : `<div class="g-today" style="left:${todayLeft}%;" title="เดือนปัจจุบัน"></div>`;
   const draftCount = allItems.filter(it=>it.span.draft).length;
 
   const monthHead = `
@@ -2025,7 +2072,8 @@ function renderGantt(scope){
       const rollup = normalizeSegs(allSegs).map(sg=>
         `<div class="g-rollup" style="left:${(sg[0]/12)*100}%;width:${((sg[1]-sg[0]+1)/12)*100}%;"></div>`).join('');
       const numHtml = g.node.num ? `<span class="g-num">${esc(g.node.num)}</span>` : '';
-      const presetBtns = APP.canEdit ? `
+      const mayEdit = canEditNode(g.node.id);
+      const presetBtns = mayEdit ? `
         <div class="g-presets">
           <span class="lab">ใช้กับทุกข้อในกล่อง:</span>
           ${PRESETS.map((p,pi)=>`<button data-gpreset="${g.node.id}" data-pi="${pi}">${p[0]}</button>`).join('')}
@@ -2033,9 +2081,9 @@ function renderGantt(scope){
           ${g.items.some(it=>it.span.draft)?`<button class="ok" data-gconfirm="${g.node.id}">✓ ยืนยันร่าง</button>`:''}
         </div>` : '';
       rowsHtml += `
-        <div class="g-row g-group">
+        <div class="g-row g-group${mayEdit?'':' g-lock'}">
           <div class="g-label">${numHtml}${esc(g.node.label).replace(/\n/g,' ')}${presetBtns}</div>
-          <div class="g-track">${rollup}<div class="g-today" style="left:${todayLeft}%;"></div></div>
+          <div class="g-track">${rollup}${todayHtml}</div>
           <div></div>
         </div>`;
       g.items.forEach(it=>{
@@ -2047,31 +2095,32 @@ function renderGantt(scope){
           bars = sp.segs.map((sg,k)=>{
             const left = (sg[0]/12)*100, width = ((sg[1]-sg[0]+1)/12)*100;
             return `<div class="g-bar ${sp.draft?'draft':''}" style="left:${left}%;width:${width}%;">${MONTHS[sg[0]]}–${MONTHS[sg[1]]}`
-              + (APP.canEdit?`<button class="g-seg-del" data-gid="${g.node.id}" data-gi="${it.i}" data-gk="${k}" title="ลบช่วงนี้">✕</button>`:'')
+              + (mayEdit?`<button class="g-seg-del" data-gid="${g.node.id}" data-gi="${it.i}" data-gk="${k}" title="ลบช่วงนี้">✕</button>`:'')
               + `</div>`;
           }).join('');
         }
         rowsHtml += `
-          <div class="g-row g-item">
+          <div class="g-row g-item${mayEdit?'':' g-lock'}">
             <div class="g-label">${esc(it.text)}</div>
-            <div class="g-track ${APP.canEdit?'drag':''}" data-gid="${g.node.id}" data-gi="${it.i}" title="${APP.canEdit?'ลากคลุมเดือนเพื่อเพิ่มช่วง':''}">
+            <div class="g-track ${mayEdit?'drag':''}" data-gid="${g.node.id}" data-gi="${it.i}" data-edit="${mayEdit?1:0}" title="${mayEdit?'ลากคลุมเดือนเพื่อเพิ่มช่วง':''}">
               ${bars}
-              <div class="g-today" style="left:${todayLeft}%;" title="เดือนปัจจุบัน"></div>
+              ${todayHtml}
             </div>
-            <div class="g-ctl">${APP.canEdit && sp.set? `<button data-gclear="${g.node.id}" data-gi="${it.i}" title="ล้างทุกช่วงของรายการนี้">✕ ล้าง</button>`:''}</div>
+            <div class="g-ctl">${mayEdit && sp.set? `<button data-gclear="${g.node.id}" data-gi="${it.i}" title="ล้างทุกช่วงของรายการนี้">✕ ล้าง</button>`:''}</div>
           </div>`;
       });
     });
   }
 
   dlg.style.setProperty('--g-color', colorVar);
-  dlg.style.setProperty('--ctl-w', APP.canEdit ? '150px' : '0px');
+  const anyEdit = groups.some(g=>canEditNode(g.node.id));
+  dlg.style.setProperty('--ctl-w', anyEdit ? '150px' : '0px');
   dlg.innerHTML = `
     <div class="g-head">
       <div>
         <div class="g-fy">${FY_LABEL} · ${FY_RANGE}</div>
         <h3>${esc(scope.label).replace(/\n/g,' ')}</h3>
-        <div class="g-note">${allItems.length} รายการปฏิบัติ${draftCount? ` · <b style="color:var(--g-color)">ร่าง ${draftCount} รายการ (แถบลายทาง)</b> รอตรวจและยืนยัน`:''}${unsetCount? ` · ยังไม่กำหนด ${unsetCount} รายการ (เส้นประ)`:''}${!draftCount&&!unsetCount? ' · ยืนยันช่วงเวลาครบแล้ว':''}${APP.canEdit? '<br>วิธีกำหนด: <b>ลากเมาส์คลุมเดือน</b>บนแถบเพื่อเพิ่มช่วง (1 รายการมีได้หลายช่วง) · ปุ่มลัดใต้ชื่อกล่องใช้กับทุกข้อพร้อมกัน · กดกากบาทมุมแถบเพื่อลบช่วงนั้น':''}</div>
+        <div class="g-note">${allItems.length} รายการปฏิบัติ${draftCount? ` · <b style="color:var(--g-color)">ร่าง ${draftCount} รายการ (แถบลายทาง)</b> รอตรวจและยืนยัน`:''}${unsetCount? ` · ยังไม่กำหนด ${unsetCount} รายการ (เส้นประ)`:''}${!draftCount&&!unsetCount? ' · ยืนยันช่วงเวลาครบแล้ว':''}${anyEdit? '<br>วิธีกำหนด: <b>ลากเมาส์คลุมเดือน</b>บนแถบเพื่อเพิ่มช่วง (1 รายการมีได้หลายช่วง) · ปุ่มลัดใต้ชื่อกล่องใช้กับทุกข้อพร้อมกัน · กดกากบาทมุมแถบเพื่อลบช่วงนั้น':''}</div>
       </div>
       <button class="g-close" id="gClose" aria-label="ปิด">✕</button>
     </div>
@@ -2080,7 +2129,7 @@ function renderGantt(scope){
         ${monthHead}
         ${rowsHtml}
       </div>
-      <div class="g-foot">แถบจางหนาเล็กใต้ชื่อกล่อง = ช่วงรวมของทุกรายการในกล่องนั้น · เส้นแดงแนวตั้ง = เดือนปัจจุบัน (${MONTHS[CURRENT_M]}) · ปีงบประมาณไทยเริ่ม ต.ค. สิ้นสุด ก.ย.</div>
+      <div class="g-foot">แถบจางหนาเล็กใต้ชื่อกล่อง = ช่วงรวมของทุกรายการในกล่องนั้น · ${CURRENT_M>=0? 'เส้นแดงแนวตั้ง = เดือนปัจจุบัน ('+MONTHS[CURRENT_M]+') · ' : ''}ปีงบประมาณไทยเริ่ม ต.ค. สิ้นสุด ก.ย.</div>
     </div>`;
 
   dlg.querySelector('#gClose').onclick = ()=>dlg.close();
@@ -2129,11 +2178,11 @@ function renderGantt(scope){
     };
   });
 
-  // ลากคลุมเดือนบนแถบเพื่อเพิ่มช่วง
-  if(APP.canEdit){
-    dlg.querySelectorAll('.g-track[data-gid]').forEach(track=>{
-      track.addEventListener('mousedown', (e)=>{
-        if(e.button!==0 || e.target.closest('.g-seg-del')) return;
+  // ลากคลุมเดือนบนแถบเพื่อเพิ่มช่วง — pointer event จึงใช้นิ้วลากบนมือถือได้ด้วย
+  {
+    dlg.querySelectorAll('.g-track.drag[data-gid]').forEach(track=>{
+      track.addEventListener('pointerdown', (e)=>{
+        if((e.pointerType==='mouse' && e.button!==0) || e.target.closest('.g-seg-del')) return;
         e.preventDefault();
         const rect = track.getBoundingClientRect();
         const monthAt = (x)=> Math.max(0, Math.min(11, Math.floor((x - rect.left)/rect.width*12)));
@@ -2149,36 +2198,154 @@ function renderGantt(scope){
           pv.textContent = MONTHS[s]+'–'+MONTHS[en];
         };
         draw();
+        try{ track.setPointerCapture(e.pointerId); }catch(_){}
         const mv = (ev)=>{ m1 = monthAt(ev.clientX); draw(); };
         const up = ()=>{
-          document.removeEventListener('mousemove', mv);
-          document.removeEventListener('mouseup', up);
+          track.removeEventListener('pointermove', mv);
+          track.removeEventListener('pointerup', up);
+          track.removeEventListener('pointercancel', up);
           pv.remove();
           const n = nodeById(track.dataset.gid);
           if(n){ addSegment(n, +track.dataset.gi, Math.min(m0,m1), Math.max(m0,m1)); after(); }
         };
-        document.addEventListener('mousemove', mv);
-        document.addEventListener('mouseup', up);
+        track.addEventListener('pointermove', mv);
+        track.addEventListener('pointerup', up);
+        track.addEventListener('pointercancel', up);
       });
     });
   }
 }
 
 function showToast(msg, ok){
-  const t = document.getElementById('toast');
-  if(!t) return;
+  const t = document.getElementById('toastFix');
   t.textContent = msg;
-  t.className = 'toast ' + (ok? 'ok':'err');
+  t.className = 'toast-fix show ' + (ok ? 'ok' : 'err');
+  clearTimeout(t._h);
+  t._h = setTimeout(()=>{ t.className = 'toast-fix ' + (ok ? 'ok' : 'err'); }, 2600);
+}
+
+/* ---------- ช่วงเวลา: อ่าน/เขียนผ่าน Worker ---------- */
+function collectSpans(){
+  const out = {};
+  (function w(n){ if(n.spans) out[n.id] = n.spans; (n.children||[]).forEach(w); })(APP.tree);
+  return out;
+}
+function applySpans(spans){
+  (function w(n){
+    if(spans[n.id]) n.spans = JSON.parse(JSON.stringify(spans[n.id]));
+    (n.children||[]).forEach(w);
+  })(APP.tree);
+  APP.baseSpans = JSON.parse(JSON.stringify(collectSpans()));
+}
+
+/* ส่งเฉพาะรายการที่เปลี่ยนไป — กันการเขียนทับงานคนอื่น */
+function diffOps(){
+  const cur = collectSpans(), ops = [];
+  for(const id in cur){
+    const arr = cur[id] || [], base = APP.baseSpans[id] || [];
+    for(let i = 0; i < Math.max(arr.length, base.length); i++){
+      const a = JSON.stringify(arr[i] || null), b = JSON.stringify(base[i] || null);
+      if(a !== b) ops.push({ id, i, segs: (arr[i] && arr[i].segs) || null, draft: !!(arr[i] && arr[i].draft) });
+    }
+  }
+  return ops;
 }
 
 async function persist(){
-  if(!APP.docRef) return;
+  if(!APP.token){ showToast('ยังไม่ได้เข้าสู่ระบบ — การแก้นี้ไม่ถูกบันทึก', false); return; }
+  const ops = diffOps();
+  if(!ops.length) return;
+  APP.saving = true;
   try{
-    const clean = JSON.parse(JSON.stringify(APP.tree, (k,v)=> k.startsWith('_') ? undefined : v));
-    await APP.docRef.set(clean);
+    const r = await fetch(API + '/api/spans', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + APP.token },
+      body: JSON.stringify({ ops })
+    });
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+    applySpans(j.spans || {});
     showToast('บันทึกแล้ว ✓', true);
   }catch(e){
-    showToast('บันทึกไม่สำเร็จ: '+(e&&e.message||'unknown'), false);
+    showToast('บันทึกไม่สำเร็จ: ' + (e && e.message || 'ไม่ทราบสาเหตุ') + ' — ดึงข้อมูลล่าสุดกลับมาใหม่', false);
+    await reloadSpans();
+    const dlg = document.getElementById('ganttDlg');
+    if(dlg.open && APP.selectedId) openGantt(APP.selectedId);
+  }finally{ APP.saving = false; }
+}
+
+async function reloadSpans(){
+  try{
+    const r = await fetch(API + '/api/tree', { cache: 'no-store' });
+    const j = await r.json();
+    if(j && j.spans && Object.keys(j.spans).length){
+      applySpans(j.spans);
+      return j.meta || null;
+    }
+  }catch(e){}
+  APP.baseSpans = JSON.parse(JSON.stringify(collectSpans()));
+  return null;
+}
+
+/* ---------- เข้าสู่ระบบ ---------- */
+function setUser(u){
+  APP.user = u;
+  const badge = document.getElementById('editBadge');
+  const btn = document.getElementById('btnAuth');
+  if(u){
+    badge.hidden = false;
+    badge.textContent = u.admin
+      ? '✏ ' + u.name + ' · แก้ไขได้ทุกงาน'
+      : '✏ ' + u.name + ' · แก้ไขได้เฉพาะงานของตัวเอง';
+    btn.textContent = 'ออกจากระบบ';
+  }else{
+    badge.hidden = true;
+    btn.textContent = '🔑 เข้าสู่ระบบเพื่อแก้ไขช่วงเวลา';
+  }
+  const dlg = document.getElementById('ganttDlg');
+  if(dlg.open && APP.selectedId) openGantt(APP.selectedId);
+}
+
+function authSetup(){
+  const lg = document.getElementById('loginDlg');
+  const input = document.getElementById('lgCode');
+  const err = document.getElementById('lgErr');
+
+  document.getElementById('btnAuth').onclick = ()=>{
+    if(APP.user){
+      APP.token = null;
+      try{ localStorage.removeItem('cfoJobToken'); }catch(e){}
+      setUser(null);
+      showToast('ออกจากระบบแล้ว', true);
+      return;
+    }
+    err.textContent = ''; input.value = '';
+    lg.showModal(); input.focus();
+  };
+  document.getElementById('lgCancel').onclick = ()=>lg.close();
+  input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); doLogin(); } });
+  document.getElementById('lgOk').onclick = doLogin;
+
+  async function doLogin(){
+    const code = input.value.trim().toUpperCase();
+    if(!code){ err.textContent = 'ใส่รหัสก่อน'; return; }
+    err.textContent = 'กำลังตรวจ…';
+    try{
+      const r = await fetch(API + '/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+      const j = await r.json().catch(()=>({}));
+      if(!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+      APP.token = j.token;
+      try{ localStorage.setItem('cfoJobToken', j.token); }catch(e){}
+      setUser(j.user);
+      lg.close();
+      showToast('สวัสดี ' + j.user.name, true);
+    }catch(e){
+      err.textContent = (e && e.message) || 'เข้าสู่ระบบไม่สำเร็จ';
+    }
   }
 }
 
@@ -2193,36 +2360,40 @@ function canvasClickSetup(){
     openGantt(el.dataset.id);
   });
   document.getElementById('canvas').addEventListener('keydown', (e)=>{
-    if(e.key==='Enter' || e.key===' '){
+    if(e.key === 'Enter' || e.key === ' '){
       const el = e.target.closest('.node');
-      if(el){ e.preventDefault(); APP.editing=false; APP.selectedId = el.dataset.id; render(); openGantt(el.dataset.id); }
+      if(el){ e.preventDefault(); APP.editing = false; APP.selectedId = el.dataset.id; render(); openGantt(el.dataset.id); }
     }
   });
-  // คลิกพื้นหลังนอกกล่องเนื้อหา = ปิดป๊อปอัป
+  // คลิกพื้นหลังนอกกล่องเนื้อหา = ปิดป็อปอัป
   const dlg = document.getElementById('ganttDlg');
-  dlg.addEventListener('click', (e)=>{ if(e.target===dlg) dlg.close(); });
+  dlg.addEventListener('click', (e)=>{ if(e.target === dlg) dlg.close(); });
+}
+
+function fmtWhen(iso){
+  try{
+    const d = new Date(iso);
+    const m = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    return d.getDate() + ' ' + m[d.getMonth()] + ' ' + (d.getFullYear() + 543 - 2500) +
+           ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  }catch(e){ return ''; }
 }
 
 async function init(){
-  let canEdit = false, dbNs = null, docRef = null, liveTree = null;
-  try{
-    const user = await claude.use('user');
-    if(user) canEdit = await user.canEdit();
-  }catch(e){}
-  try{ dbNs = await claude.use('db'); }catch(e){}
-  if(dbNs){
+  authSetup();
+  let tok = null;
+  try{ tok = localStorage.getItem('cfoJobToken'); }catch(e){}
+  if(tok){
     try{
-      docRef = dbNs.doc('config/tree');
-      const snap = await docRef.get();
-      // snapshots are frozen — clone before the layout engine writes coordinates onto nodes
-      if(snap.exists) liveTree = JSON.parse(JSON.stringify(snap.data()));
+      const r = await fetch(API + '/api/me', { headers: { 'Authorization': 'Bearer ' + tok } });
+      if(r.ok){ const j = await r.json(); APP.token = tok; setUser(j.user); }
+      else { localStorage.removeItem('cfoJobToken'); }
     }catch(e){}
   }
-  APP.tree = liveTree || cloneDefault();
-  APP.canEdit = canEdit;
-  APP.docRef = docRef;
-  document.getElementById('editBadge').hidden = !canEdit;
-  document.getElementById('loadState').textContent = liveTree ? 'โหลดข้อมูลที่บันทึกไว้แล้ว' : 'ข้อมูล ณ 1 ต.ค. 2569';
+  const meta = await reloadSpans();
+  document.getElementById('loadState').textContent = meta && meta.updatedAt
+    ? 'แก้ไขล่าสุด ' + fmtWhen(meta.updatedAt) + (meta.updatedBy ? ' โดย ' + meta.updatedBy : '')
+    : 'ข้อมูล ณ 1 ต.ค. 2569';
   render();
 }
 

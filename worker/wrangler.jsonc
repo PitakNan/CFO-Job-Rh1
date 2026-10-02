@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cfo-job-rh1",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "TREE", "class_name": "TreeStore" }]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["TreeStore"] }
+  ]
+}
